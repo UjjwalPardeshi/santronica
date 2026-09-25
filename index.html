@@ -12,11 +12,25 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://santronica.com/images/og-preview.jpg">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='6' width='20' height='20' rx='4' fill='%230b1426'/%3E%3Crect x='6' y='6' width='20' height='20' rx='4' fill='none' stroke='%2300b4d8' stroke-width='2'/%3E%3Ctext x='16' y='21' font-family='Arial' font-size='13' font-weight='bold' fill='%2300b4d8' text-anchor='middle'%3ES%3C/text%3E%3Cpath d='M11 2v4M16 2v4M21 2v4M11 26v4M16 26v4M21 26v4M2 11h4M2 16h4M2 21h4M26 11h4M26 16h4M26 21h4' stroke='%2300b4d8' stroke-width='2'/%3E%3C/svg%3E">
-  <script>document.documentElement.classList.add("js");</script>
+  <script>
+    (function (d) {
+      var h = d.documentElement; h.classList.add("js");
+      try {
+        var rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var sd = navigator.connection && navigator.connection.saveData;
+        var c = d.createElement("canvas");
+        var gl = c.getContext("webgl2") || c.getContext("webgl");
+        if (gl && !rm && !sd) h.classList.add("pcb"); else h.classList.add("pcb-off");
+      } catch (e) { h.classList.add("pcb-off"); }
+    })(document);
+  </script>
+  <script type="importmap">{"imports":{"three":"./js/vendor/three/three.module.min.js","three/addons/":"./js/vendor/three/addons/"}}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/sections.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,6 +46,8 @@
 </head>
 <body>
   <a class="skip-link" href="#services">Skip to content</a>
+
+  <div class="pcb-stage" id="pcbStage" aria-hidden="true"></div>
 
   <!-- ============ NAVIGATION ============ -->
   <header class="nav" id="top">
@@ -60,36 +76,10 @@
 
   <main>
     <!-- ============ HERO ============ -->
-    <section class="hero" id="home">
-      <svg class="hero-circuit" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-        <g stroke="#00b4d8" stroke-width="1.5" fill="none" opacity="0.55">
-          <path d="M0 120 H260 l40 40 H520"/>
-          <path d="M0 320 H180 l60 -60 H420 l40 40 H700"/>
-          <path d="M1200 90 H960 l-50 50 H760"/>
-          <path d="M1200 420 H1000 l-60 60 H820 l-40 -40 H640"/>
-          <path d="M120 700 V560 l50 -50 V380"/>
-          <path d="M1080 700 V600 l-60 -60 V460"/>
-          <path d="M540 0 V110 l40 40 V260"/>
-          <path d="M860 0 V160 l-40 40 V310"/>
-        </g>
-        <g fill="#00b4d8" opacity="0.8">
-          <circle cx="520" cy="160" r="5"/>
-          <circle cx="700" cy="300" r="5"/>
-          <circle cx="760" cy="140" r="5"/>
-          <circle cx="640" cy="440" r="5"/>
-          <circle cx="170" cy="380" r="5"/>
-          <circle cx="1020" cy="460" r="5"/>
-          <circle cx="580" cy="260" r="5"/>
-          <circle cx="820" cy="310" r="5"/>
-        </g>
-        <g stroke="#f5a524" stroke-width="1.5" fill="none" opacity="0.35">
-          <path d="M0 540 H220 l30 30 H400"/>
-          <path d="M1200 240 H1060 l-40 -40 H900"/>
-        </g>
-      </svg>
+    <section class="hero" id="home" data-theme="dark">
       <div class="container hero-inner">
         <p class="hero-eyebrow reveal">Electronics &middot; Embedded Software &middot; Intrinsic Safety</p>
-        <h1 class="reveal">Electronics &amp; Intrinsic Safety<br><span class="grad-text">Design Services</span></h1>
+        <h1 class="reveal">Electronics &amp; Intrinsic Safety<br><span class="hero-highlight">Design Services</span></h1>
         <p class="hero-sub reveal">A senior team of Ex-certified engineers taking your product from concept to certified reality — schematics, PCB layout, embedded software, and IEC&nbsp;60079 intrinsic safety for devices that must not fail.</p>
         <div class="hero-ctas reveal">
           <a href="#contact" class="btn btn-accent">Start a Project</a>
@@ -103,6 +93,9 @@
           <li class="badge">IEC 610xx</li>
           <li class="badge badge-amber">Ex&nbsp;Zone 0/1</li>
         </ul>
+        <div class="hero-pcb-slot">
+          <div class="pcb-slot" data-pcb-slot="hero" data-pcb-rx="45" data-pcb-spin="0" data-pcb-ry="0" data-pcb-rz="0" data-pcb-explode="0" data-pcb-fit="0.85" data-pcb-opacity="1" aria-hidden="true"></div>
+        </div>
       </div>
       <div class="hero-stats">
         <div class="container stats-grid">
@@ -127,45 +120,36 @@
     </section>
 
     <!-- ============ WHY CHOOSE US ============ -->
-    <section class="section" id="why">
+    <section class="section" id="why" data-theme="light">
       <div class="container">
-        <div class="about-head">
-          <div>
+        <div class="why-head">
+          <div class="why-text">
             <p class="eyebrow reveal">Why Choose Santronica</p>
             <h2 class="reveal">Niche expertise you can build on</h2>
             <p class="section-lead reveal">We are an experienced team working in niche areas of new product design, testing and consulting — providing customized solutions at any stage of your project to meet your business needs.</p>
           </div>
-          <div class="about-media reveal">
-            <img class="about-photo" src="images/lab-testing.jpg" alt="Engineer testing electronics at a production test bench" width="1200" height="800" decoding="async">
-            <img class="about-photo-accent" src="images/electronics-assembly.jpg" alt="Hands assembling and adjusting a power electronics board" width="1200" height="800" decoding="async">
+          <div class="pcb-slot-wrapper">
+            <div class="pcb-slot pcb-slot--desktop" data-pcb-slot="why" data-pcb-rx="60" data-pcb-spin="15" data-pcb-ry="0" data-pcb-rz="0" data-pcb-explode="0" data-pcb-fit="0.8" data-pcb-opacity="1" aria-hidden="true"></div>
           </div>
+        </div>
+        <div class="why-media">
+          <img class="media-image reveal" src="images/lab-testing.jpg" alt="Engineer testing electronics at a production test bench" width="1200" height="800" decoding="async">
+          <img class="media-image-accent reveal" src="images/electronics-assembly.jpg" alt="Hands assembling and adjusting a power electronics board" width="1200" height="800" decoding="async">
         </div>
         <div class="grid grid-4">
           <article class="card reveal">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 21l5-3 5 3-1.5-8.5"/></svg>
-            </div>
             <h3>20+ Years of Experience</h3>
             <p>Two decades of new product design, testing and consulting across electronics, software and hazardous-area domains.</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 2 4 5.5v5.6c0 4.9 3.4 9.5 8 10.9 4.6-1.4 8-6 8-10.9V5.5L12 2z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>
-            </div>
             <h3>Ex Comp Certified</h3>
             <p>Engineers holding Ex competence certification — qualified to design and review products for explosive atmospheres.</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.6 4 5.7 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.7-4-9s1.3-6.4 4-9z"/></svg>
-            </div>
             <h3>Global Client Base</h3>
             <p>Trusted by clients across the US and India, delivering to international standards and working across time zones.</p>
           </article>
           <article class="card reveal">
-            <div class="card-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 19V5M4 12h10M14 8l4 4-4 4"/><circle cx="20" cy="12" r="1.6"/></svg>
-            </div>
             <h3>Any Project Stage</h3>
             <p>Join at concept, rescue a stalled design, or take a finished board through certification — we plug in wherever you need us.</p>
           </article>
@@ -174,16 +158,20 @@
     </section>
 
     <!-- ============ SERVICES ============ -->
-    <section class="section section-alt" id="services">
+    <section class="section section-alt" id="services" data-theme="light">
       <div class="container">
-        <p class="eyebrow reveal">What We Do</p>
-        <h2 class="reveal">Three pillars, one accountable team</h2>
+        <div class="services-head">
+          <div>
+            <p class="eyebrow reveal">What We Do</p>
+            <h2 class="reveal">Three pillars, one accountable team</h2>
+          </div>
+          <div class="pcb-slot-wrapper">
+            <div class="pcb-slot pcb-slot--desktop" data-pcb-slot="services" data-pcb-rx="90" data-pcb-spin="45" data-pcb-ry="0" data-pcb-rz="0" data-pcb-explode="1" data-pcb-fit="0.75" data-pcb-opacity="0.95" aria-hidden="true"></div>
+          </div>
+        </div>
         <div class="grid grid-3 pillars">
           <article class="pillar reveal">
             <div class="pillar-head">
-              <div class="pillar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg>
-              </div>
               <h3>Electronics Design</h3>
             </div>
             <ul class="check-list">
@@ -198,9 +186,6 @@
           </article>
           <article class="pillar reveal">
             <div class="pillar-head">
-              <div class="pillar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg>
-              </div>
               <h3>Software &amp; Mechanical</h3>
             </div>
             <ul class="check-list">
@@ -215,9 +200,6 @@
           </article>
           <article class="pillar pillar-is reveal">
             <div class="pillar-head">
-              <div class="pillar-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 2 4 5.5v5.6c0 4.9 3.4 9.5 8 10.9 4.6-1.4 8-6 8-10.9V5.5L12 2z"/><path d="M13 7l-3.5 5h2.8L11 17l4.5-6h-3L13 7z"/></svg>
-              </div>
               <h3>Intrinsic Safety <span class="tag-ex">Ex</span></h3>
             </div>
             <ul class="check-list">
@@ -235,50 +217,39 @@
     </section>
 
     <!-- ============ INDUSTRIES ============ -->
-    <section class="section" id="industries">
+    <section class="section" id="industries" data-theme="light">
       <div class="container">
-        <p class="eyebrow reveal">Project Areas</p>
-        <h2 class="reveal">Industries we engineer for</h2>
+        <div class="industries-head">
+          <div class="industries-text">
+            <p class="eyebrow reveal">Project Areas</p>
+            <h2 class="reveal">Industries we engineer for</h2>
+          </div>
+          <div class="pcb-slot-wrapper">
+            <div class="pcb-slot pcb-slot--desktop" data-pcb-slot="industries" data-pcb-rx="35" data-pcb-spin="-30" data-pcb-ry="0" data-pcb-rz="0" data-pcb-explode="0" data-pcb-fit="0.8" data-pcb-opacity="1" aria-hidden="true"></div>
+          </div>
+        </div>
         <div class="grid grid-3">
           <article class="tile reveal">
-            <div class="tile-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M2.5 9.5a13.5 13.5 0 0 1 19 0M5.5 12.8a9 9 0 0 1 13 0M8.6 16a4.6 4.6 0 0 1 6.8 0"/><circle cx="12" cy="19.4" r="1.4" class="fill"/></svg>
-            </div>
             <h3>IoT &amp; Wireless Connectivity</h3>
             <p>Connected sensors and gateways with robust RF, low-power firmware and cloud or app integration.</p>
           </article>
           <article class="tile reveal">
-            <div class="tile-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M3 21V11l5 3v-3l5 3v-3l5 3v7H3z"/><path d="M17 11V4h4v17"/></svg>
-            </div>
             <h3>Industrial Electronics</h3>
             <p>Rugged controllers and interfaces engineered for noisy electrical environments and long field life.</p>
           </article>
           <article class="tile reveal">
-            <div class="tile-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 3 10 2.5-7 1.5 2h5"/></svg>
-            </div>
             <h3>Medical Electronics</h3>
             <p>Patient-safe device electronics designed with FDA compliance support in mind from the first schematic.</p>
           </article>
           <article class="tile reveal">
-            <div class="tile-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9v6M12 9v6M17 9v6M7 12h2"/></svg>
-            </div>
             <h3>Switchgear &amp; RTUs</h3>
             <p>Remote terminal units and switchgear electronics for monitoring, protection and control systems.</p>
           </article>
           <article class="tile reveal">
-            <div class="tile-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h13M21 18h-1"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="19" cy="18" r="2"/></svg>
-            </div>
             <h3>Process Automation</h3>
             <p>Measurement and control electronics that keep continuous processes accurate, observable and safe.</p>
           </article>
           <article class="tile tile-ex reveal">
-            <div class="tile-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 9.5v4.5M12 17.2v.3"/></svg>
-            </div>
             <h3>Hazardous Locations <span class="tag-ex">Ex</span></h3>
             <p>Zone 0/1 instrumentation built to IEC 60079, from protection circuits to certification-ready technical files.</p>
           </article>
@@ -287,14 +258,20 @@
     </section>
 
     <!-- ============ SHOWCASE ============ -->
-    <section class="section section-alt" id="showcase">
+    <section class="section section-dark" id="showcase" data-theme="dark">
       <div class="container">
-        <p class="eyebrow reveal">What We Build</p>
-        <h2 class="reveal">From bare concept to certified hardware</h2>
+        <div class="showcase-head">
+          <div>
+            <p class="eyebrow reveal">What We Build</p>
+            <h2 class="reveal">From bare concept to certified hardware</h2>
+          </div>
+          <div class="pcb-slot-wrapper">
+            <div class="pcb-slot pcb-slot--desktop" data-pcb-slot="showcase" data-pcb-rx="50" data-pcb-spin="120" data-pcb-ry="0" data-pcb-rz="0" data-pcb-explode="0" data-pcb-fit="0.8" data-pcb-opacity="0.9" aria-hidden="true"></div>
+          </div>
+        </div>
         <div class="grid grid-3">
-          <!-- Stock placeholder — swap with a photo of your own assembled PCB when available -->
           <figure class="showcase-card reveal">
-            <div class="showcase-art has-photo">
+            <div class="showcase-art">
               <img src="images/pcb-prototype.jpg" alt="Close-up of a densely populated multi-layer printed circuit board" width="1200" height="800" loading="lazy" decoding="async">
             </div>
             <figcaption>
@@ -302,9 +279,8 @@
               <p>Schematic to assembled, tested boards — multi-layer layouts delivered in Altium and OrCAD with full BoM and DXF.</p>
             </figcaption>
           </figure>
-          <!-- Stock placeholder — swap with a photo of your own connected product + app when available -->
           <figure class="showcase-card reveal">
-            <div class="showcase-art has-photo">
+            <div class="showcase-art">
               <img src="images/connected-device.jpg" alt="Smart lock device controlled from a companion mobile app" width="1200" height="800" loading="lazy" decoding="async">
             </div>
             <figcaption>
@@ -312,9 +288,8 @@
               <p>Embedded firmware, webservers and companion Android &amp; iOS apps — one team across device and cloud.</p>
             </figcaption>
           </figure>
-          <!-- Stock placeholder — swap with a photo of your own Zone 0/1 / encapsulated product when available -->
           <figure class="showcase-card reveal">
-            <div class="showcase-art has-photo">
+            <div class="showcase-art">
               <img src="images/hazardous-plant.jpg" alt="Process plant with distillation columns — a typical hazardous-location environment" width="1200" height="800" loading="lazy" decoding="async">
             </div>
             <figcaption>
@@ -327,10 +302,17 @@
     </section>
 
     <!-- ============ DELIVERABLES ============ -->
-    <section class="section" id="deliverables">
+    <section class="section" id="deliverables" data-theme="light">
       <div class="container">
-        <p class="eyebrow reveal">Deliverables</p>
-        <h2 class="reveal">Everything you need to own your design</h2>
+        <div class="deliverables-head">
+          <div>
+            <p class="eyebrow reveal">Deliverables</p>
+            <h2 class="reveal">Everything you need to own your design</h2>
+          </div>
+          <div class="pcb-slot-wrapper">
+            <div class="pcb-slot pcb-slot--desktop" data-pcb-slot="deliverables" data-pcb-rx="80" data-pcb-spin="200" data-pcb-ry="0" data-pcb-rz="0" data-pcb-explode="0" data-pcb-fit="0.75" data-pcb-opacity="1" aria-hidden="true"></div>
+          </div>
+        </div>
         <div class="grid grid-2 deliverables-grid">
           <article class="deliv-card reveal">
             <h3>Electronics Projects</h3>
@@ -392,10 +374,14 @@
     </section>
 
     <!-- ============ PROCESS ============ -->
-    <section class="section section-dark" id="process">
+    <section class="section section-alt" id="process" data-theme="light">
       <div class="container">
-        <p class="eyebrow reveal">How We Work</p>
-        <h2 class="reveal">A process built on trust and clarity</h2>
+        <div class="process-head">
+          <div>
+            <p class="eyebrow reveal">How We Work</p>
+            <h2 class="reveal">A process built on trust and clarity</h2>
+          </div>
+        </div>
         <ol class="timeline">
           <li class="reveal">
             <span class="step-num">01</span>
@@ -432,7 +418,7 @@
     </section>
 
     <!-- ============ CONTACT ============ -->
-    <section class="section" id="contact">
+    <section class="section" id="contact" data-theme="light">
       <div class="container">
         <div class="grid grid-2 contact-grid">
           <div class="contact-info reveal">
@@ -441,18 +427,18 @@
             <p class="section-lead">Tell us where you are — a napkin sketch, a stalled board, or a finished product that needs certification. We'll tell you honestly how we can help.</p>
             <ul class="contact-list">
               <li>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
                 <a href="mailto:admin@santronica.com">admin@santronica.com</a>
               </li>
               <li>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.6 4 5.7 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.7-4-9s1.3-6.4 4-9z"/></svg>
                 <span>Serving clients across the US &amp; India</span>
               </li>
               <li>
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5.5v5.6c0 4.9 3.4 9.5 8 10.9 4.6-1.4 8-6 8-10.9V5.5L12 2z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>
                 <span>NDA signed before any technical discussion</span>
               </li>
             </ul>
+            <div class="pcb-slot-wrapper-mobile">
+              <div class="pcb-slot pcb-slot--mobile" data-pcb-slot="contact-mobile" data-pcb-rx="70" data-pcb-spin="270" data-pcb-ry="0" data-pcb-rz="0" data-pcb-explode="0" data-pcb-fit="0.8" data-pcb-opacity="1" aria-hidden="true"></div>
+            </div>
           </div>
           <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/admin@santronica.com" method="POST" novalidate>
             <input type="hidden" name="_subject" value="New project enquiry — Santronica website">
@@ -539,5 +525,10 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script type="module">
+    if (document.documentElement.classList.contains("pcb")) {
+      import("./js/pcb3d.js").catch(function () { document.documentElement.classList.add("pcb-failed"); });
+    }
+  </script>
 </body>
 </html>
