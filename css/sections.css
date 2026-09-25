@@ -300,6 +300,15 @@
   }
 }
 
+/* ---------- Phones: one column for tiles, cards and chip groups ----------
+   (the tablet rule above keeps two columns down to 601px; below that they get too narrow) */
+@media (max-width: 600px) {
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ---------- Small Mobile (< 390px) ---------- */
 @media (max-width: 390px) {
   .container {
