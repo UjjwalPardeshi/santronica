@@ -484,32 +484,6 @@ select {
   height: 100%;
 }
 
-.pcb-slot {
-  position: absolute;
-  pointer-events: none;
-}
-
-.pcb-slot--mobile {
-  display: none;
-  width: 100%;
-  height: 56vw;
-  margin: 24px 0;
-  max-height: 400px;
-}
-
-@media (max-width: 1024px) {
-  .pcb-slot--mobile {
-    display: block;
-  }
-}
-
-.pcb-off .pcb-slot--mobile,
-.pcb-off .pcb-slot--stage,
-.pcb-failed .pcb-slot--mobile,
-.pcb-failed .pcb-slot--stage {
-  display: none;
-}
-
 /* Debug mode */
 html.pcb-debug .pcb-slot {
   outline: 1px dashed magenta;

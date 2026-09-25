@@ -4,39 +4,8 @@
 
 /* ---------- Large Desktop (1440px+) ---------- */
 @media (min-width: 1441px) {
-  .why-head,
-  .services-head,
-  .industries-head,
-  .showcase-head,
-  .deliverables-head,
-  .process-head {
-    margin-bottom: 80px;
-  }
-
   .section {
     padding: 160px 0;
-  }
-}
-
-/* ---------- Desktop (1025px-1440px) ---------- */
-@media (min-width: 1025px) {
-  .why-head {
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-  }
-
-  .services-head {
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-  }
-
-  .industries-head {
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-  }
-
-  .pcb-slot-wrapper {
-    height: 520px;
   }
 }
 
@@ -48,22 +17,6 @@
 
   h2 {
     font-size: clamp(28px, 6vw, 44px);
-  }
-
-  .why-head,
-  .services-head,
-  .industries-head,
-  .showcase-head,
-  .deliverables-head,
-  .process-head {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    margin-bottom: 40px;
-  }
-
-  .pcb-slot-wrapper {
-    height: 400px;
-    display: none;
   }
 
   .grid-4 {
@@ -168,11 +121,6 @@
   .badge {
     font-size: 11px;
     padding: 6px 12px;
-  }
-
-  .hero-pcb-slot {
-    margin-top: 40px;
-    min-height: 300px;
   }
 
   .stats-grid {
@@ -361,10 +309,6 @@
     padding: 16px 0;
     font-size: 12px;
   }
-
-  .pcb-slot-wrapper-mobile {
-    margin-top: 24px;
-  }
 }
 
 /* ---------- Small Mobile (< 390px) ---------- */
@@ -401,27 +345,13 @@
 
 /* Why Section - Two column layout on desktop */
 @media (min-width: 1025px) {
-  .why-head {
-    grid-template-columns: 1.2fr 0.9fr;
-    gap: 64px;
-  }
-
   .why-text {
     padding-top: 0;
   }
-
-  .pcb-slot-wrapper {
-    height: 480px;
-  }
 }
 
-/* Services - Centered heading with side PCB */
+/* Services - three pillars */
 @media (min-width: 1025px) {
-  .services-head {
-    grid-template-columns: 1.2fr 0.9fr;
-    gap: 64px;
-  }
-
   .pillars {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -439,14 +369,8 @@
   }
 }
 
-/* Industries - Grid with side PCB */
+/* Industries */
 @media (min-width: 1025px) {
-  .industries-head {
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 64px;
-    align-items: start;
-  }
-
   .industries-text {
     padding-top: 0;
   }
@@ -457,20 +381,9 @@
   background: var(--bg-dark);
 }
 
-@media (min-width: 1025px) {
-  .showcase-head {
-    grid-template-columns: 1.2fr 0.9fr;
-    gap: 64px;
-  }
-}
 
 /* Deliverables - Two column grid */
 @media (min-width: 1025px) {
-  .deliverables-head {
-    grid-template-columns: 1.2fr 0.9fr;
-    gap: 64px;
-  }
-
   .deliverables-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -490,11 +403,6 @@
 
 /* Process - Timeline grid */
 @media (min-width: 1025px) {
-  .process-head {
-    grid-template-columns: 1.2fr 0.9fr;
-    gap: 64px;
-  }
-
   .timeline {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -553,8 +461,7 @@ section[data-theme="light"] .nav .nav-links a:not(.btn) {
 @media print {
   .nav,
   .pcb-stage,
-  .pcb-slot-wrapper,
-  .pcb-slot-wrapper-mobile {
+  .pcb-slot-wrapper {
     display: none !important;
   }
 
@@ -658,4 +565,104 @@ section[data-theme="light"] .nav .nav-links a:not(.btn) {
   .pcb-stage {
     display: none !important;
   }
+}
+
+/* ============================================================
+   Floating PCB — slot layout & choreography stages
+   (the board itself is drawn by js/pcb3d.js on the fixed .pcb-stage;
+    these boxes only tell it where to fly)
+   ============================================================ */
+.pcb-slot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.pcb-slot-wrapper,
+.hero-pcb-slot {
+  position: relative;
+  min-width: 0;
+}
+
+/* Section heads: text beside a slot; --flip puts the slot on the left. */
+.pcb-head {
+  margin-bottom: 60px;
+}
+@media (min-width: 1441px) {
+  .pcb-head {
+    margin-bottom: 80px;
+  }
+}
+.container > .pcb-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 56px;
+  align-items: center;
+}
+.container > .pcb-head--flip {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+.container > .pcb-head--flip > .pcb-slot-wrapper {
+  order: -1;
+}
+.pcb-head > .pcb-slot-wrapper {
+  height: clamp(340px, 34vw, 460px);
+}
+
+/* Hero: headline left, the board large on the right. */
+@media (min-width: 1025px) {
+  .hero-inner {
+    width: min(1200px, 100% - 44px);
+    max-width: none;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    column-gap: 40px;
+    align-items: center;
+  }
+  .hero-inner > :not(.hero-pcb-slot) {
+    grid-column: 1;
+  }
+  .hero-pcb-slot {
+    grid-column: 2;
+    grid-row: 1 / span 5;
+    align-self: center;
+    height: clamp(460px, 42vw, 620px);
+    margin: 0;
+  }
+  .pcb-slot-wrapper--contact {
+    height: 320px;
+    margin-top: 40px;
+  }
+}
+
+/* Tablet & phone: single column. Only a few sections keep a stage for the board. */
+@media (max-width: 1024px) {
+  .container > .pcb-head,
+  .container > .pcb-head--flip {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .container > .pcb-head--flip > .pcb-slot-wrapper {
+    order: 0;
+  }
+  .pcb-slot-wrapper {
+    display: none;
+  }
+  .pcb-slot-wrapper--stage,
+  .hero-pcb-slot {
+    display: block;
+    height: min(64vw, 440px);
+    margin: 16px 0 8px;
+  }
+}
+
+/* No live board (reduced motion, no WebGL, failure): collapse the empty stages. */
+.pcb-off .pcb-slot-wrapper,
+.pcb-failed .pcb-slot-wrapper {
+  display: none;
+}
+.pcb-off .container > .pcb-head,
+.pcb-failed .container > .pcb-head {
+  grid-template-columns: 1fr;
 }
