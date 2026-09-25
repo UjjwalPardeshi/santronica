@@ -4,7 +4,8 @@
  *   - before the first slot reaches the focus line the board sits in it (scrolls with it)
  *   - after the last slot passes it the board stays in that slot (scrolls away with it)
  *   - between slots A and B: the board rides inside A while A is near the focus line
- *     (dwell), glides to B, then rides inside B; it dips in opacity mid-flight
+ *     (dwell), glides to B, then rides inside B; it dips in opacity mid-flight, fully out on
+ *     flights longer than ~2.5 screens
  * Slots with a 0x0 box (display:none at this breakpoint) are ignored.
  *
  * Orientation convention (see SPEC): q = Rz(rz) · Ry(ry) · Rx(rx) · Ry_local(spin).
@@ -107,8 +108,11 @@ export class Choreo {
     // Hand-off: ride slot A, then glide to slot B as it arrives from below.
     out.x = lerp(a.x, b.x, e);
     out.y = lerp(a.y, b.y, e);
-    // Large moving objects go translucent while they travel and firm up once settled.
-    const dip = 1 - (1 - this.travelOpacity) * Math.sqrt(Math.sin(Math.PI * u));
+    // Large moving objects go translucent while they travel and firm up once settled. On long
+    // flights (several screens with no stop, e.g. on phones) the board vanishes on the way instead
+    // of hanging as a ghost behind the text it passes.
+    const floor = this.travelOpacity * (1 - clamp01((D / vh - 1.5) / 1.0));
+    const dip = 1 - (1 - floor) * Math.sqrt(Math.sin(Math.PI * u));
     out.opacity = lerp(A.pose.opacity, B.pose.opacity, e) * dip;
     out.pair = [A.name, B.name];
     out.t = t;
