@@ -50,7 +50,7 @@ async function boot() {
   mark('model');
   S.scene.add(model.group);
 
-  const choreo = new Choreo({ extents: (e) => model.extents(e), travelOpacity: small() || coarse ? 0.1 : 0.16 });
+  const choreo = new Choreo({ hull: (e) => model.hull(e), travelOpacity: small() || coarse ? 0.1 : 0.16 });
 
   // Springs (critically damped). Position/size are CSS px; angles degrees.
   const sp = {};
@@ -187,6 +187,8 @@ async function boot() {
       drawCalls: S.renderer.info.render.calls,
       triangles: S.renderer.info.render.triangles,
       slots: choreo.slots.map((s) => s.name),
+      /** Where each slot's board is drawn at rest: fitted box in document px (for layout tests). */
+      fits: choreo.slots.map((s) => ({ name: s.name, cx: s.cx, cy: s.cy, w: s.bw * s.s, h: s.bh * s.s, slotW: s.w, slotH: s.h })),
       activePair: choreo.last.pair,
       t: choreo.last.t,
       dpr,

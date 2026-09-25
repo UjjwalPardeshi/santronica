@@ -34,8 +34,9 @@ const smoother = (x) => x * x * x * (x * (x * 6 - 15) + 10);
 const lerp = (a, b, t) => a + (b - a) * t;
 
 export class Choreo {
-  constructor({ extents, dwell = 0.3, travelOpacity = 0.55 }) {
-    this.extents = extents;       // (explode) => { x, z, yMin, yMax } model-space mm
+  constructor({ hull, dwell = 0.3, travelOpacity = 0.55 }) {
+    this.hull = hull;             // (explode) => flat [x, y, z, ...] model-space mm points to fit
+    this.hulls = new Map();       // explode -> points (slots only use a few distinct values)
     this.dwell = dwell;
     this.travelOpacity = travelOpacity;
     this.slots = [];
@@ -62,14 +63,16 @@ export class Choreo {
 
   /** px-per-mm so the posed board fills `fit` of the slot, plus the projected centre offset (mm). */
   fitFor(pose, w, h) {
-    const q = poseQuaternion(pose), ex = this.extents(pose.explode);
+    const q = poseQuaternion(pose);
+    if (!this.hulls.has(pose.explode)) this.hulls.set(pose.explode, this.hull(pose.explode));
+    const pts = this.hulls.get(pose.explode);
     let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-    for (const X of [-ex.x, ex.x]) for (const Y of [ex.yMin, ex.yMax]) for (const Z of [-ex.z, ex.z]) {
-      _v.set(X, Y, Z).applyQuaternion(q);
+    for (let i = 0; i < pts.length; i += 3) {
+      _v.set(pts[i], pts[i + 1], pts[i + 2]).applyQuaternion(q);
       x0 = Math.min(x0, _v.x); x1 = Math.max(x1, _v.x); y0 = Math.min(y0, _v.y); y1 = Math.max(y1, _v.y);
     }
     const s = Math.min((pose.fit * w) / (x1 - x0), (pose.fit * h) / (y1 - y0));
-    return { s, ox: (x0 + x1) / 2, oy: (y0 + y1) / 2 };
+    return { s, ox: (x0 + x1) / 2, oy: (y0 + y1) / 2, bw: x1 - x0, bh: y1 - y0 };
   }
 
   /** Target state for the current scroll position. Screen coordinates in CSS px. */
