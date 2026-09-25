@@ -543,12 +543,11 @@
 
 /* Section heads: text beside a slot; --flip puts the slot on the left. */
 .pcb-head {
-  margin-bottom: 60px;
+  margin-bottom: clamp(40px, 7vh, 72px);
+  margin-bottom: clamp(40px, 7svh, 72px);
 }
-@media (min-width: 1441px) {
-  .pcb-head {
-    margin-bottom: 80px;
-  }
+.pcb-head > div > :last-child {
+  margin-bottom: 0;
 }
 .container > .pcb-head {
   display: grid;
@@ -562,8 +561,15 @@
 .container > .pcb-head--flip > .pcb-slot-wrapper {
   order: -1;
 }
+/* The stage is as tall as the heading beside it (no hole under a short heading), with a floor
+   so the board stays a good size. The board may spill a little into the space around the row. */
 .pcb-head > .pcb-slot-wrapper {
-  height: clamp(340px, 34vw, 460px);
+  align-self: stretch;
+  min-height: clamp(200px, min(20vw, 34vh), 260px);
+  min-height: clamp(200px, min(20vw, 34svh), 260px);
+}
+.pcb-head > .pcb-slot-wrapper > .pcb-slot {
+  inset: -10% 0;
 }
 
 /* Hero: headline left, the board large on the right. */
@@ -583,11 +589,13 @@
     grid-column: 2;
     grid-row: 1 / span 5;
     align-self: center;
-    height: clamp(460px, 42vw, 620px);
+    height: clamp(360px, min(42vw, 100vh - 150px), 620px);
+    height: clamp(360px, min(42vw, 100svh - 150px), 620px);
     margin: 0;
   }
   .pcb-slot-wrapper--contact {
-    height: 320px;
+    height: clamp(220px, 34vh, 320px);
+    height: clamp(220px, 34svh, 320px);
     margin-top: 40px;
   }
 }
@@ -609,8 +617,12 @@
   .pcb-slot-wrapper--stage,
   .hero-pcb-slot {
     display: block;
-    height: min(64vw, 440px);
+    height: clamp(200px, min(62vw, 50vh), 420px);
+    height: clamp(200px, min(62vw, 50svh), 420px);
     margin: 16px 0 8px;
+  }
+  .pcb-head > .pcb-slot-wrapper > .pcb-slot {
+    inset: 0;
   }
 }
 
