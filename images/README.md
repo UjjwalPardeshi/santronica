@@ -15,13 +15,14 @@ it in this folder, done. No code changes needed.
 | `lab-testing.jpg` | Engineer at test bench | Your lab/workbench (scope, soldering station) | "Why Us" section, large photo |
 | `electronics-assembly.jpg` | Hands assembling a power board | Your team assembling/testing a board | "Why Us" section, small overlay photo |
 | `og-preview.jpg` | PCB macro, 1200×630 | A branded 1200×630 social-share card | Link previews (WhatsApp/LinkedIn/etc.) |
+| `pcb-poster.webp` | Render of the site's own 3D board | Not a photo — keep it. Re-render it only if the 3D board's design or hero pose changes | Hero, until the live 3D board appears, and as the hero image when 3D is off |
 
 ## Replacement tips
 
 - Keep roughly the same aspect ratio: 3:2 (1200×800) for cards, 1200×630 for `og-preview.jpg`.
 - JPG for photos, under ~300 KB each (compress at https://squoosh.app).
 - Avoid client-confidential silkscreen text or schematics in shots.
-- Dark or neutral backgrounds match the site's navy/cyan theme best.
+- Neutral backgrounds (black, white or light grey) match the site's black/white bands best.
 
 ## Still worth adding later
 
