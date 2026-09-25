@@ -128,6 +128,8 @@
   font-size: clamp(24px, 3vw, 32px);
   font-weight: 600;
   color: var(--text-dark);
+  /* Fixed-width digits so the count-up animation doesn't jiggle the line. */
+  font-variant-numeric: tabular-nums;
 }
 
 .stat-plus {
