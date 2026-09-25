@@ -49,8 +49,6 @@
   color: var(--text-dark);
   padding-top: calc(var(--nav-h) + 80px);
   overflow: hidden;
-  position: relative;
-  z-index: 1;
 }
 
 .hero-inner {
@@ -125,8 +123,6 @@
   margin-top: 80px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.02);
-  position: relative;
-  z-index: 1;
 }
 
 .stats-grid {
@@ -569,8 +565,6 @@
 .footer {
   background: var(--bg-alt);
   padding: 60px 0 0;
-  position: relative;
-  z-index: 1;
 }
 
 .footer-grid {

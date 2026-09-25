@@ -97,12 +97,14 @@ p {
 .container {
   width: min(var(--container), 100% - 44px);
   margin-inline: auto;
-}
-
-.section {
-  padding: clamp(80px, 15vw, 160px) 0;
+  /* Content paints above the floating PCB; section backgrounds paint below it. */
   position: relative;
   z-index: 1;
+}
+
+/* Sections stay non-positioned so their flat backgrounds render beneath the fixed .pcb-stage. */
+.section {
+  padding: clamp(80px, 15vw, 160px) 0;
 }
 
 .section-alt {
