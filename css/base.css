@@ -28,6 +28,12 @@
   --container:     980px;
 }
 
+@media (max-width: 768px) {
+  :root {
+    --radius-lg: 20px;
+  }
+}
+
 /* ---------- Reset / Base ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
