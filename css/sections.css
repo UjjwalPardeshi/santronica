@@ -1,0 +1,661 @@
+/* ============================================================
+   Section-Specific & Responsive Styles
+   ============================================================ */
+
+/* ---------- Large Desktop (1440px+) ---------- */
+@media (min-width: 1441px) {
+  .why-head,
+  .services-head,
+  .industries-head,
+  .showcase-head,
+  .deliverables-head,
+  .process-head {
+    margin-bottom: 80px;
+  }
+
+  .section {
+    padding: 160px 0;
+  }
+}
+
+/* ---------- Desktop (1025px-1440px) ---------- */
+@media (min-width: 1025px) {
+  .why-head {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+
+  .services-head {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+
+  .industries-head {
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+
+  .pcb-slot-wrapper {
+    height: 520px;
+  }
+}
+
+/* ---------- Tablet (769px-1024px) ---------- */
+@media (max-width: 1024px) {
+  h1 {
+    font-size: clamp(36px, 8vw, 52px);
+  }
+
+  h2 {
+    font-size: clamp(28px, 6vw, 44px);
+  }
+
+  .why-head,
+  .services-head,
+  .industries-head,
+  .showcase-head,
+  .deliverables-head,
+  .process-head {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+  }
+
+  .pcb-slot-wrapper {
+    height: 400px;
+    display: none;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  .why-media {
+    grid-template-columns: 1fr;
+  }
+
+  .media-image-accent {
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Mobile (390px-768px) ---------- */
+@media (max-width: 768px) {
+  h1 {
+    font-size: clamp(32px, 7vw, 44px);
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: clamp(24px, 5vw, 34px);
+  }
+
+  h3 {
+    font-size: clamp(16px, 4vw, 21px);
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .container {
+    padding: 0 22px;
+  }
+
+  .section {
+    padding: 80px 0;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .section-lead {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .hero {
+    padding-top: calc(var(--nav-h) + 40px);
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    margin-bottom: 12px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-ctas .btn {
+    width: 100%;
+  }
+
+  .hero-badges {
+    gap: 6px;
+  }
+
+  .badge {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+
+  .hero-pcb-slot {
+    margin-top: 40px;
+    min-height: 300px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 32px 0;
+  }
+
+  .stat-num,
+  .stat-plus,
+  .stat-text {
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    margin-top: 6px;
+  }
+
+  .pillar {
+    padding: 28px 20px;
+  }
+
+  .pillar-head h3 {
+    font-size: 16px;
+  }
+
+  .check-list {
+    font-size: 14px;
+    gap: 10px;
+  }
+
+  .tile {
+    padding: 24px 20px;
+  }
+
+  .tile h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .tile p {
+    font-size: 14px;
+  }
+
+  .card {
+    background: transparent;
+    padding: 0;
+  }
+
+  .card h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
+
+  .showcase-card {
+    margin-bottom: 16px;
+  }
+
+  .showcase-art {
+    aspect-ratio: 16 / 9;
+  }
+
+  .showcase-card figcaption {
+    padding: 20px 16px;
+  }
+
+  .showcase-card h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .showcase-card p {
+    font-size: 14px;
+  }
+
+  .deliv-card {
+    padding: 24px 20px;
+  }
+
+  .deliv-card h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .tool-group h3 {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .chips {
+    gap: 6px;
+  }
+
+  .chip-tag {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .step-num {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .timeline h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .timeline p {
+    font-size: 14px;
+  }
+
+  .contact-info h2 {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+
+  .contact-list {
+    margin-top: 24px;
+  }
+
+  .contact-list li {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .contact-form {
+    padding: 24px;
+  }
+
+  .field {
+    margin-bottom: 16px;
+  }
+
+  label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .footer {
+    padding: 40px 0 0;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-bottom: 24px;
+  }
+
+  .footer-blurb {
+    font-size: 13px;
+  }
+
+  .footer-links h3 {
+    font-size: 13px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+  .footer-bar {
+    padding: 16px 0;
+    font-size: 12px;
+  }
+
+  .pcb-slot-wrapper-mobile {
+    margin-top: 24px;
+  }
+}
+
+/* ---------- Small Mobile (< 390px) ---------- */
+@media (max-width: 390px) {
+  h1 {
+    font-size: clamp(28px, 6vw, 32px);
+  }
+
+  h2 {
+    font-size: clamp(20px, 4vw, 24px);
+  }
+
+  .container {
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 5px 10px;
+  }
+
+  .btn-small {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* ---------- Specific Section Styling ---------- */
+
+/* Why Section - Two column layout on desktop */
+@media (min-width: 1025px) {
+  .why-head {
+    grid-template-columns: 1.2fr 0.9fr;
+    gap: 64px;
+  }
+
+  .why-text {
+    padding-top: 0;
+  }
+
+  .pcb-slot-wrapper {
+    height: 480px;
+  }
+}
+
+/* Services - Centered heading with side PCB */
+@media (min-width: 1025px) {
+  .services-head {
+    grid-template-columns: 1.2fr 0.9fr;
+    gap: 64px;
+  }
+
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .pillars {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Industries - Grid with side PCB */
+@media (min-width: 1025px) {
+  .industries-head {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .industries-text {
+    padding-top: 0;
+  }
+}
+
+/* Showcase - Dark background, photo cards */
+.section-dark {
+  background: var(--bg-dark);
+}
+
+@media (min-width: 1025px) {
+  .showcase-head {
+    grid-template-columns: 1.2fr 0.9fr;
+    gap: 64px;
+  }
+}
+
+/* Deliverables - Two column grid */
+@media (min-width: 1025px) {
+  .deliverables-head {
+    grid-template-columns: 1.2fr 0.9fr;
+    gap: 64px;
+  }
+
+  .deliverables-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .deliverables-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .deliverables-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Process - Timeline grid */
+@media (min-width: 1025px) {
+  .process-head {
+    grid-template-columns: 1.2fr 0.9fr;
+    gap: 64px;
+  }
+
+  .timeline {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Contact - Form styling */
+@media (min-width: 1025px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+}
+
+/* ---------- Nav Material Switching ---------- */
+/* Nav changes color based on section theme */
+section[data-theme="dark"] ~ header.nav,
+section[data-theme="dark"] .nav {
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--text-dark);
+}
+
+/* Light sections */
+section[data-theme="light"] {
+  background: var(--bg);
+}
+
+section[data-theme="light"] ~ header.nav,
+section[data-theme="light"] .nav {
+  background: rgba(255, 255, 255, 0.75);
+  color: var(--text);
+}
+
+section[data-theme="light"] ~ header.nav .nav-links a:not(.btn),
+section[data-theme="light"] .nav .nav-links a:not(.btn) {
+  color: var(--text);
+}
+
+/* ---------- Print Styles ---------- */
+@media print {
+  .nav,
+  .pcb-stage,
+  .pcb-slot-wrapper,
+  .pcb-slot-wrapper-mobile {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+  }
+
+  .section {
+    page-break-inside: avoid;
+  }
+}
+
+/* ---------- High DPI Displays ---------- */
+@media (min-width: 2560px) {
+  .container {
+    width: min(1400px, 100% - 44px);
+  }
+
+  .section {
+    padding: clamp(120px, 20vw, 200px) 0;
+  }
+
+  h1 {
+    font-size: 96px;
+  }
+
+  h2 {
+    font-size: 72px;
+  }
+
+  .stats-grid {
+    gap: 48px;
+  }
+}
+
+/* ---------- Touch-friendly Spacing ---------- */
+@media (hover: none) and (pointer: coarse) {
+  /* Increase touch targets on mobile devices */
+  .btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  a,
+  button {
+    min-height: 44px;
+  }
+
+  input,
+  textarea,
+  select {
+    min-height: 44px;
+  }
+
+  .nav-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* ---------- Light/Dark Mode Support ---------- */
+@media (prefers-color-scheme: dark) {
+  /* Fallback for systems that support dark mode preference */
+  /* But we use data-theme attributes instead */
+}
+
+/* ---------- Contrast Mode ---------- */
+@media (prefers-contrast: more) {
+  .badge {
+    border-width: 2px;
+  }
+
+  input,
+  textarea,
+  select {
+    border-width: 2px;
+  }
+
+  .tile,
+  .pillar,
+  .deliv-card {
+    border-width: 2px;
+  }
+}
+
+/* ---------- Reduced Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .hero-badges,
+  .hero-ctas {
+    animation: none;
+  }
+
+  .pcb-stage {
+    display: none !important;
+  }
+}
