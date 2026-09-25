@@ -158,17 +158,35 @@ export class PcbModel {
       this.batches.push({ mesh, recs });
     }
     this.group.traverse((o) => { o.frustumCulled = false; });
+
+    // Boxes for fitting: the bare board, plus each part (grouped by how far it lifts) at rest.
+    this.boardBox = new THREE.Box3().setFromObject(top).union(new THREE.Box3().setFromObject(bot)).union(new THREE.Box3().setFromObject(edge));
+    const parts = new Map(), box = new THREE.Box3();
+    for (const { mesh, recs } of this.batches) {
+      if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
+      for (const r of recs) {
+        const key = `${r.part}:${r.liftMul}`;
+        if (!parts.has(key)) parts.set(key, { part: r.part, mul: r.liftMul, box: new THREE.Box3() });
+        parts.get(key).box.union(box.copy(mesh.geometry.boundingBox).applyMatrix4(r.m));
+      }
+    }
+    this.partBoxes = [...parts.values()];
     this.setExplode(0);
+  }
+
+  /** Height each part is lifted by at explode amount e (centre-first ripple, smootherstep). */
+  liftsAt(e) {
+    return this.lift.map(({ h, delay }) => {
+      const p = Math.min(1, Math.max(0, (e - delay) / (1 - 0.32)));
+      return h * p * p * p * (p * (p * 6 - 15) + 10);
+    });
   }
 
   /** 0 = assembled, 1 = fully exploded. Cheap no-op when unchanged. */
   setExplode(e) {
     if (Math.abs(e - this.lastExplode) < 1e-4) return;
     this.lastExplode = e;
-    const lifts = this.lift.map(({ h, delay }) => {
-      const p = Math.min(1, Math.max(0, (e - delay) / (1 - 0.32)));
-      return h * p * p * p * (p * (p * 6 - 15) + 10);
-    });
+    const lifts = this.liftsAt(e);
     const m = new THREE.Matrix4();
     for (const { mesh, recs } of this.batches) {
       recs.forEach((r, i) => { m.copy(r.m); m.elements[13] += lifts[r.part] * r.liftMul; mesh.setMatrixAt(i, m); });
@@ -177,9 +195,19 @@ export class PcbModel {
     this.topMat.aoMapIntensity = 1 - 0.8 * Math.min(1, e * 1.6);
   }
 
-  /** Axis-aligned model-space extents (mm) used for fitting, including exploded height. */
-  extents(explode) {
-    return { x: BOARD.w / 2, z: BOARD.h / 2, yMin: -2.5, yMax: 6 + explode * 40 };
+  /**
+   * Corner points (model-space mm, flat [x, y, z, ...]) of the board and of every part at this
+   * explode amount. Fitting to these instead of one bounding box keeps the drawn board as large
+   * as its slot allows: an exploded board no longer reserves empty sky above every corner.
+   */
+  hull(explode) {
+    const lifts = this.liftsAt(explode), pts = [];
+    const corners = (b, dy) => {
+      for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y + dy, b.max.y + dy]) for (const z of [b.min.z, b.max.z]) pts.push(x, y, z);
+    };
+    corners(this.boardBox, 0);
+    for (const { part, mul, box } of this.partBoxes) corners(box, lifts[part] * mul);
+    return pts;
   }
 
   info() {
