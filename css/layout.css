@@ -47,7 +47,8 @@
 .hero {
   background: var(--bg-dark);
   color: var(--text-dark);
-  padding-top: calc(var(--nav-h) + 80px);
+  padding-top: calc(var(--nav-h) + clamp(28px, 9vh, 80px));
+  padding-top: calc(var(--nav-h) + clamp(28px, 9svh, 80px));
   overflow: hidden;
 }
 
@@ -106,7 +107,8 @@
 
 /* Hero Stats */
 .hero-stats {
-  margin-top: 80px;
+  margin-top: clamp(40px, 8vh, 80px);
+  margin-top: clamp(40px, 8svh, 80px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.02);
 }

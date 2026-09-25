@@ -108,9 +108,11 @@ p {
   z-index: 1;
 }
 
-/* Sections stay non-positioned so their flat backgrounds render beneath the fixed .pcb-stage. */
+/* Sections stay non-positioned so their flat backgrounds render beneath the fixed .pcb-stage.
+   Spacing follows the screen height too, so short laptop screens don't get half-empty views. */
 .section {
-  padding: clamp(80px, 15vw, 160px) 0;
+  padding: clamp(64px, min(9vw, 12vh), 120px) 0;
+  padding: clamp(64px, min(9vw, 12svh), 120px) 0;
 }
 
 .section-alt {

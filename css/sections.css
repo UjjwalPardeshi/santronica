@@ -2,13 +2,6 @@
    Section-Specific & Responsive Styles
    ============================================================ */
 
-/* ---------- Large Desktop (1440px+) ---------- */
-@media (min-width: 1441px) {
-  .section {
-    padding: 160px 0;
-  }
-}
-
 /* ---------- Tablet (769px-1024px) ---------- */
 @media (max-width: 1024px) {
   h1 {
@@ -80,10 +73,6 @@
 
   .container {
     padding: 0 22px;
-  }
-
-  .section {
-    padding: 80px 0;
   }
 
   .eyebrow {
@@ -326,10 +315,6 @@
     padding: 0 16px;
   }
 
-  .section {
-    padding: 60px 0;
-  }
-
   .badge {
     font-size: 10px;
     padding: 5px 10px;
@@ -454,10 +439,6 @@
 @media (min-width: 2560px) {
   .container {
     width: min(1400px, 100% - 44px);
-  }
-
-  .section {
-    padding: clamp(120px, 20vw, 200px) 0;
   }
 
   h1 {
