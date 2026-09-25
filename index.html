@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Santronica | Electronics &amp; Intrinsic Safety Design Services</title>
+  <meta name="description" content="Santronica provides electronics design, embedded software, and intrinsic safety (IEC 60079) consulting — schematic &amp; PCB layout, prototyping, compliance support and Zone 0/1 product certification guidance for clients in the US and India.">
+  <link rel="canonical" href="https://santronica.com/">
+  <meta property="og:url" content="https://santronica.com/">
+  <meta property="og:title" content="Santronica — Electronics & Intrinsic Safety Design Services">
+  <meta property="og:description" content="From concept to certified product: schematics, PCB layout, embedded software, and IEC 60079 intrinsic safety expertise.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://santronica.com/images/og-preview.jpg">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='6' y='6' width='20' height='20' rx='4' fill='%230b1426'/%3E%3Crect x='6' y='6' width='20' height='20' rx='4' fill='none' stroke='%2300b4d8' stroke-width='2'/%3E%3Ctext x='16' y='21' font-family='Arial' font-size='13' font-weight='bold' fill='%2300b4d8' text-anchor='middle'%3ES%3C/text%3E%3Cpath d='M11 2v4M16 2v4M21 2v4M11 26v4M16 26v4M21 26v4M2 11h4M2 16h4M2 21h4M26 11h4M26 16h4M26 21h4' stroke='%2300b4d8' stroke-width='2'/%3E%3C/svg%3E">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Santronica",
+    "url": "https://santronica.com",
+    "description": "Electronics & Intrinsic Safety Design Services — schematic & PCB design, embedded software, and IEC 60079 intrinsic safety consulting.",
+    "email": "admin@santronica.com",
+    "areaServed": ["United States", "India"],
+    "knowsAbout": ["Electronics Design", "PCB Layout", "Embedded Software", "Intrinsic Safety", "IEC 60079", "Hazardous Locations"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#services">Skip to content</a>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a href="#top" class="brand" aria-label="Santronica home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect x="6" y="6" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+          <text x="16" y="21" font-size="13" font-weight="bold" fill="currentColor" text-anchor="middle" font-family="inherit">S</text>
+          <path d="M11 2v4M16 2v4M21 2v4M11 26v4M16 26v4M21 26v4M2 11h4M2 16h4M2 21h4M26 11h4M26 16h4M26 21h4" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="brand-name">SANTRONICA</span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Primary">
+        <a href="#why">Why Us</a>
+        <a href="#services">Services</a>
+        <a href="#industries">Industries</a>
+        <a href="#deliverables">Deliverables</a>
+        <a href="#process">Process</a>
+        <a href="#contact" class="btn btn-small btn-accent nav-cta">Start a Project</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="home">
+      <svg class="hero-circuit" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <g stroke="#00b4d8" stroke-width="1.5" fill="none" opacity="0.55">
+          <path d="M0 120 H260 l40 40 H520"/>
+          <path d="M0 320 H180 l60 -60 H420 l40 40 H700"/>
+          <path d="M1200 90 H960 l-50 50 H760"/>
+          <path d="M1200 420 H1000 l-60 60 H820 l-40 -40 H640"/>
+          <path d="M120 700 V560 l50 -50 V380"/>
+          <path d="M1080 700 V600 l-60 -60 V460"/>
+          <path d="M540 0 V110 l40 40 V260"/>
+          <path d="M860 0 V160 l-40 40 V310"/>
+        </g>
+        <g fill="#00b4d8" opacity="0.8">
+          <circle cx="520" cy="160" r="5"/>
+          <circle cx="700" cy="300" r="5"/>
+          <circle cx="760" cy="140" r="5"/>
+          <circle cx="640" cy="440" r="5"/>
+          <circle cx="170" cy="380" r="5"/>
+          <circle cx="1020" cy="460" r="5"/>
+          <circle cx="580" cy="260" r="5"/>
+          <circle cx="820" cy="310" r="5"/>
+        </g>
+        <g stroke="#f5a524" stroke-width="1.5" fill="none" opacity="0.35">
+          <path d="M0 540 H220 l30 30 H400"/>
+          <path d="M1200 240 H1060 l-40 -40 H900"/>
+        </g>
+      </svg>
+      <div class="container hero-inner">
+        <p class="hero-eyebrow reveal">Electronics &middot; Embedded Software &middot; Intrinsic Safety</p>
+        <h1 class="reveal">Electronics &amp; Intrinsic Safety<br><span class="grad-text">Design Services</span></h1>
+        <p class="hero-sub reveal">A senior team of Ex-certified engineers taking your product from concept to certified reality — schematics, PCB layout, embedded software, and IEC&nbsp;60079 intrinsic safety for devices that must not fail.</p>
+        <div class="hero-ctas reveal">
+          <a href="#contact" class="btn btn-accent">Start a Project</a>
+          <a href="#services" class="btn btn-ghost">Explore Our Services</a>
+        </div>
+        <ul class="hero-badges reveal" aria-label="Compliance and standards expertise">
+          <li class="badge">CE</li>
+          <li class="badge">UL</li>
+          <li class="badge">FDA</li>
+          <li class="badge">IEC 60079</li>
+          <li class="badge">IEC 610xx</li>
+          <li class="badge badge-amber">Ex&nbsp;Zone 0/1</li>
+        </ul>
+      </div>
+      <div class="hero-stats">
+        <div class="container stats-grid">
+          <div class="stat reveal">
+            <span class="stat-num" data-count="20">0</span><span class="stat-plus">+</span>
+            <span class="stat-label">Years of Design Experience</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat-num" data-count="5">0</span>
+            <span class="stat-label">Specialist Engineers</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat-text">US &amp; India</span>
+            <span class="stat-label">Active Client Regions</span>
+          </div>
+          <div class="stat reveal">
+            <span class="stat-text">Ex Comp</span>
+            <span class="stat-label">Certified Engineers</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WHY CHOOSE US ============ -->
+    <section class="section" id="why">
+      <div class="container">
+        <div class="about-head">
+          <div>
+            <p class="eyebrow reveal">Why Choose Santronica</p>
+            <h2 class="reveal">Niche expertise you can build on</h2>
+            <p class="section-lead reveal">We are an experienced team working in niche areas of new product design, testing and consulting — providing customized solutions at any stage of your project to meet your business needs.</p>
+          </div>
+          <div class="about-media reveal">
+            <img class="about-photo" src="images/lab-testing.jpg" alt="Engineer testing electronics at a production test bench" width="1200" height="800" decoding="async">
+            <img class="about-photo-accent" src="images/electronics-assembly.jpg" alt="Hands assembling and adjusting a power electronics board" width="1200" height="800" decoding="async">
+          </div>
+        </div>
+        <div class="grid grid-4">
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5 7 21l5-3 5 3-1.5-8.5"/></svg>
+            </div>
+            <h3>20+ Years of Experience</h3>
+            <p>Two decades of new product design, testing and consulting across electronics, software and hazardous-area domains.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 2 4 5.5v5.6c0 4.9 3.4 9.5 8 10.9 4.6-1.4 8-6 8-10.9V5.5L12 2z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>
+            </div>
+            <h3>Ex Comp Certified</h3>
+            <p>Engineers holding Ex competence certification — qualified to design and review products for explosive atmospheres.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.6 4 5.7 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.7-4-9s1.3-6.4 4-9z"/></svg>
+            </div>
+            <h3>Global Client Base</h3>
+            <p>Trusted by clients across the US and India, delivering to international standards and working across time zones.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 19V5M4 12h10M14 8l4 4-4 4"/><circle cx="20" cy="12" r="1.6"/></svg>
+            </div>
+            <h3>Any Project Stage</h3>
+            <p>Join at concept, rescue a stalled design, or take a finished board through certification — we plug in wherever you need us.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SERVICES ============ -->
+    <section class="section section-alt" id="services">
+      <div class="container">
+        <p class="eyebrow reveal">What We Do</p>
+        <h2 class="reveal">Three pillars, one accountable team</h2>
+        <div class="grid grid-3 pillars">
+          <article class="pillar reveal">
+            <div class="pillar-head">
+              <div class="pillar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/></svg>
+              </div>
+              <h3>Electronics Design</h3>
+            </div>
+            <ul class="check-list">
+              <li>Validate new concepts by prototyping</li>
+              <li>Design consulting for electronics</li>
+              <li>Design implementation: schematic &amp; PCB layout</li>
+              <li>Functional and integration testing</li>
+              <li>Compliance testing support — CE, UL, FDA</li>
+              <li>Obsolescence management &amp; porting</li>
+              <li>Retrofit of legacy boards</li>
+            </ul>
+          </article>
+          <article class="pillar reveal">
+            <div class="pillar-head">
+              <div class="pillar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M13.5 5l-3 14"/></svg>
+              </div>
+              <h3>Software &amp; Mechanical</h3>
+            </div>
+            <ul class="check-list">
+              <li>Software design for embedded applications</li>
+              <li>Board bring-up and test software</li>
+              <li>Webserver &amp; web-application design</li>
+              <li>Customized apps for Android &amp; iOS</li>
+              <li>Software maintenance</li>
+              <li>Test fixture design &amp; development</li>
+              <li>Enclosure design</li>
+            </ul>
+          </article>
+          <article class="pillar pillar-is reveal">
+            <div class="pillar-head">
+              <div class="pillar-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 2 4 5.5v5.6c0 4.9 3.4 9.5 8 10.9 4.6-1.4 8-6 8-10.9V5.5L12 2z"/><path d="M13 7l-3.5 5h2.8L11 17l4.5-6h-3L13 7z"/></svg>
+              </div>
+              <h3>Intrinsic Safety <span class="tag-ex">Ex</span></h3>
+            </div>
+            <ul class="check-list">
+              <li>Consulting &amp; workshops on intrinsic safety</li>
+              <li>Design consultancy for Zone 0/1 products</li>
+              <li>Intrinsically safe design review</li>
+              <li>Support in protection circuits &amp; layouts</li>
+              <li>Technical file preparation as per OD 17</li>
+              <li>Intrinsic safety certification guidance</li>
+              <li>Encapsulation &amp; conformal coating</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INDUSTRIES ============ -->
+    <section class="section" id="industries">
+      <div class="container">
+        <p class="eyebrow reveal">Project Areas</p>
+        <h2 class="reveal">Industries we engineer for</h2>
+        <div class="grid grid-3">
+          <article class="tile reveal">
+            <div class="tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M2.5 9.5a13.5 13.5 0 0 1 19 0M5.5 12.8a9 9 0 0 1 13 0M8.6 16a4.6 4.6 0 0 1 6.8 0"/><circle cx="12" cy="19.4" r="1.4" class="fill"/></svg>
+            </div>
+            <h3>IoT &amp; Wireless Connectivity</h3>
+            <p>Connected sensors and gateways with robust RF, low-power firmware and cloud or app integration.</p>
+          </article>
+          <article class="tile reveal">
+            <div class="tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 21V11l5 3v-3l5 3v-3l5 3v7H3z"/><path d="M17 11V4h4v17"/></svg>
+            </div>
+            <h3>Industrial Electronics</h3>
+            <p>Rugged controllers and interfaces engineered for noisy electrical environments and long field life.</p>
+          </article>
+          <article class="tile reveal">
+            <div class="tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M3 12h4l2-5 3 10 2.5-7 1.5 2h5"/></svg>
+            </div>
+            <h3>Medical Electronics</h3>
+            <p>Patient-safe device electronics designed with FDA compliance support in mind from the first schematic.</p>
+          </article>
+          <article class="tile reveal">
+            <div class="tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9v6M12 9v6M17 9v6M7 12h2"/></svg>
+            </div>
+            <h3>Switchgear &amp; RTUs</h3>
+            <p>Remote terminal units and switchgear electronics for monitoring, protection and control systems.</p>
+          </article>
+          <article class="tile reveal">
+            <div class="tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h13M21 18h-1"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="19" cy="18" r="2"/></svg>
+            </div>
+            <h3>Process Automation</h3>
+            <p>Measurement and control electronics that keep continuous processes accurate, observable and safe.</p>
+          </article>
+          <article class="tile tile-ex reveal">
+            <div class="tile-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19L12 3z"/><path d="M12 9.5v4.5M12 17.2v.3"/></svg>
+            </div>
+            <h3>Hazardous Locations <span class="tag-ex">Ex</span></h3>
+            <p>Zone 0/1 instrumentation built to IEC 60079, from protection circuits to certification-ready technical files.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SHOWCASE ============ -->
+    <section class="section section-alt" id="showcase">
+      <div class="container">
+        <p class="eyebrow reveal">What We Build</p>
+        <h2 class="reveal">From bare concept to certified hardware</h2>
+        <div class="grid grid-3">
+          <!-- Stock placeholder — swap with a photo of your own assembled PCB when available -->
+          <figure class="showcase-card reveal">
+            <div class="showcase-art has-photo">
+              <img src="images/pcb-prototype.jpg" alt="Close-up of a densely populated multi-layer printed circuit board" width="1200" height="800" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <h3>Rapid PCB Prototyping</h3>
+              <p>Schematic to assembled, tested boards — multi-layer layouts delivered in Altium and OrCAD with full BoM and DXF.</p>
+            </figcaption>
+          </figure>
+          <!-- Stock placeholder — swap with a photo of your own connected product + app when available -->
+          <figure class="showcase-card reveal">
+            <div class="showcase-art has-photo">
+              <img src="images/connected-device.jpg" alt="Smart lock device controlled from a companion mobile app" width="1200" height="800" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <h3>Connected Products End-to-End</h3>
+              <p>Embedded firmware, webservers and companion Android &amp; iOS apps — one team across device and cloud.</p>
+            </figcaption>
+          </figure>
+          <!-- Stock placeholder — swap with a photo of your own Zone 0/1 / encapsulated product when available -->
+          <figure class="showcase-card reveal">
+            <div class="showcase-art has-photo">
+              <img src="images/hazardous-plant.jpg" alt="Process plant with distillation columns — a typical hazardous-location environment" width="1200" height="800" loading="lazy" decoding="async">
+            </div>
+            <figcaption>
+              <h3>Zone 0/1 Ready Devices <span class="tag-ex">Ex</span></h3>
+              <p>Intrinsically safe designs with protection circuits, encapsulation, OD 17 technical files and certification guidance.</p>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DELIVERABLES ============ -->
+    <section class="section" id="deliverables">
+      <div class="container">
+        <p class="eyebrow reveal">Deliverables</p>
+        <h2 class="reveal">Everything you need to own your design</h2>
+        <div class="grid grid-2 deliverables-grid">
+          <article class="deliv-card reveal">
+            <h3>Electronics Projects</h3>
+            <ul class="check-list">
+              <li>Proof of Concept (PoC)</li>
+              <li>Design consultancy</li>
+              <li>Schematics, layouts &amp; BoM</li>
+              <li>DXF files &amp; source code</li>
+              <li>Test reports</li>
+              <li>Working prototypes</li>
+            </ul>
+          </article>
+          <article class="deliv-card deliv-is reveal">
+            <h3>Intrinsic Safety Projects <span class="tag-ex">Ex</span></h3>
+            <ul class="check-list">
+              <li>Design consultancy</li>
+              <li>Technical file as per OD 17</li>
+              <li>Schematics, layouts &amp; BoM</li>
+              <li>Initial prototype</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="tools-wrap">
+          <h2 class="reveal" id="tools">Tools &amp; standards we work with</h2>
+          <div class="grid grid-3 tools-grid">
+            <div class="tool-group reveal">
+              <h3>Hardware</h3>
+              <div class="chips">
+                <span class="chip-tag">Microcontrollers &amp; Microprocessors</span>
+                <span class="chip-tag">Altium Designer</span>
+                <span class="chip-tag">OrCAD</span>
+                <span class="chip-tag">Circuit Simulation</span>
+                <span class="chip-tag">IEC 610xx Standards</span>
+              </div>
+            </div>
+            <div class="tool-group reveal">
+              <h3>Software</h3>
+              <div class="chips">
+                <span class="chip-tag">C</span>
+                <span class="chip-tag">Python</span>
+                <span class="chip-tag">Webservers</span>
+                <span class="chip-tag">Mobile App Connectivity</span>
+                <span class="chip-tag">Power BI</span>
+              </div>
+            </div>
+            <div class="tool-group reveal">
+              <h3>Intrinsic Safety Standards</h3>
+              <div class="chips">
+                <span class="chip-tag chip-amber">IEC 60079-0 · General Requirements</span>
+                <span class="chip-tag chip-amber">IEC 60079-1 · Flameproof “d”</span>
+                <span class="chip-tag chip-amber">IEC 60079-11 · Intrinsic Safety “i”</span>
+                <span class="chip-tag chip-amber">OD 17 · Technical File</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROCESS ============ -->
+    <section class="section section-dark" id="process">
+      <div class="container">
+        <p class="eyebrow reveal">How We Work</p>
+        <h2 class="reveal">A process built on trust and clarity</h2>
+        <ol class="timeline">
+          <li class="reveal">
+            <span class="step-num">01</span>
+            <h3>Requirement Discussion</h3>
+            <p>We listen first — understanding your goals, constraints and what success looks like.</p>
+          </li>
+          <li class="reveal">
+            <span class="step-num">02</span>
+            <h3>NDA Sign</h3>
+            <p>Your intellectual property is protected from day one, before any technical detail is shared.</p>
+          </li>
+          <li class="reveal">
+            <span class="step-num">03</span>
+            <h3>Kick-Off Meeting</h3>
+            <p>Teams aligned, interfaces defined, communication channels and points of contact agreed.</p>
+          </li>
+          <li class="reveal">
+            <span class="step-num">04</span>
+            <h3>Schedule &amp; Deliverables</h3>
+            <p>A clear plan with milestones, deliverables and review points — no surprises.</p>
+          </li>
+          <li class="reveal">
+            <span class="step-num">05</span>
+            <h3>Execute &amp; Deliver</h3>
+            <p>Design, build, test and document — with regular progress reviews along the way.</p>
+          </li>
+          <li class="reveal">
+            <span class="step-num">06</span>
+            <h3>Feedback &amp; Support</h3>
+            <p>Post-delivery support and iteration, because shipping is the start of the product's life.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section" id="contact">
+      <div class="container">
+        <div class="grid grid-2 contact-grid">
+          <div class="contact-info reveal">
+            <p class="eyebrow">Get In Touch</p>
+            <h2>Let's discuss your project</h2>
+            <p class="section-lead">Tell us where you are — a napkin sketch, a stalled board, or a finished product that needs certification. We'll tell you honestly how we can help.</p>
+            <ul class="contact-list">
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                <a href="mailto:admin@santronica.com">admin@santronica.com</a>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.7 2.6 4 5.7 4 9s-1.3 6.4-4 9c-2.7-2.6-4-5.7-4-9s1.3-6.4 4-9z"/></svg>
+                <span>Serving clients across the US &amp; India</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5.5v5.6c0 4.9 3.4 9.5 8 10.9 4.6-1.4 8-6 8-10.9V5.5L12 2z"/><path d="m8.8 12 2.2 2.2 4.2-4.4"/></svg>
+                <span>NDA signed before any technical discussion</span>
+              </li>
+            </ul>
+          </div>
+          <form class="contact-form reveal" id="contactForm" action="https://formsubmit.co/admin@santronica.com" method="POST" novalidate>
+            <input type="hidden" name="_subject" value="New project enquiry — Santronica website">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="text" name="_honey" class="honey-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="form-row">
+              <div class="field">
+                <label for="cf-name">Name</label>
+                <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="formNote">
+              </div>
+              <div class="field">
+                <label for="cf-email">Email</label>
+                <input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="formNote">
+              </div>
+            </div>
+            <div class="field">
+              <label for="cf-company">Company <span class="optional">(optional)</span></label>
+              <input id="cf-company" name="company" type="text" autocomplete="organization">
+            </div>
+            <div class="field">
+              <label for="cf-area">Project area</label>
+              <select id="cf-area" name="area">
+                <option value="" disabled selected>Select a project area</option>
+                <option>Electronics Design</option>
+                <option>Embedded Software</option>
+                <option>Mechanical — Enclosure / Test Fixture</option>
+                <option>Intrinsic Safety / Ex Certification</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="cf-message">Project brief</label>
+              <textarea id="cf-message" name="message" rows="5" required aria-describedby="formNote" placeholder="What are you building, and what stage are you at?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-accent btn-block">Send Enquiry</button>
+            <p class="form-note" id="formNote" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="#top" class="brand brand-footer" aria-label="Back to top">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="6" y="6" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            <text x="16" y="21" font-size="13" font-weight="bold" fill="currentColor" text-anchor="middle" font-family="inherit">S</text>
+            <path d="M11 2v4M16 2v4M21 2v4M11 26v4M16 26v4M21 26v4M2 11h4M2 16h4M2 21h4M26 11h4M26 16h4M26 21h4" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span class="brand-name">SANTRONICA</span>
+        </a>
+        <p class="footer-blurb">Electronics &amp; Intrinsic Safety Design Services. From concept validation to certification-ready technical files.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <h3>Explore</h3>
+        <a href="#why">Why Us</a>
+        <a href="#services">Services</a>
+        <a href="#industries">Industries</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="footer-links">
+        <h3>Expertise</h3>
+        <a href="#services">Schematic &amp; PCB Layout</a>
+        <a href="#services">Embedded Software</a>
+        <a href="#services">Intrinsic Safety — IEC 60079</a>
+        <a href="#deliverables">Compliance: CE · UL · FDA</a>
+      </div>
+      <div class="footer-links">
+        <h3>Contact</h3>
+        <a href="mailto:admin@santronica.com">admin@santronica.com</a>
+        <span class="footer-muted">US &amp; India</span>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <div class="container">
+        <span>© <span id="year">2026</span> Santronica. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
