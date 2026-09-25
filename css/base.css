@@ -156,10 +156,6 @@ p {
   color: var(--text-dark);
 }
 
-.nav.nav--dark .brand-mark {
-  color: var(--accent-dark);
-}
-
 .nav.nav--dark .nav-links a:not(.btn) {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -185,14 +181,6 @@ p {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.brand-mark {
-  width: 28px;
-  height: 28px;
-  color: var(--accent);
   flex-shrink: 0;
 }
 
