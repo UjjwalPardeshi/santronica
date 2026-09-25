@@ -1,17 +1,36 @@
-/* Santronica — site interactions */
+/* Santronica — site interactions (Page B) */
 (function () {
   "use strict";
 
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Sticky nav shadow ---------- */
+  /* ---------- Nav material switching (dark/light) ---------- */
   var nav = document.querySelector(".nav");
-  function onScroll() {
-    if (!nav) return;
-    nav.classList.toggle("scrolled", window.scrollY > 10);
+  var sections = document.querySelectorAll("section[data-theme]");
+
+  function updateNavTheme() {
+    if (!nav || !sections.length) return;
+    var scrollY = window.scrollY;
+    var currentTheme = "light";
+
+    for (var i = 0; i < sections.length; i++) {
+      var section = sections[i];
+      var rect = section.getBoundingClientRect();
+      var sectionTop = scrollY + rect.top;
+      var navCenter = scrollY + nav.offsetHeight / 2;
+
+      if (navCenter >= sectionTop && navCenter < sectionTop + rect.height) {
+        currentTheme = section.getAttribute("data-theme") || "light";
+        break;
+      }
+    }
+
+    nav.classList.toggle("nav--dark", currentTheme === "dark");
+    nav.classList.toggle("nav--light", currentTheme === "light");
   }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
+
+  window.addEventListener("scroll", updateNavTheme, { passive: true });
+  updateNavTheme();
 
   /* ---------- Mobile menu ---------- */
   var toggle = document.getElementById("navToggle");
@@ -27,9 +46,17 @@
         toggle.setAttribute("aria-expanded", "false");
       }
     });
+
+    // Keyboard: ESC to close
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && links.classList.contains("open")) {
+        links.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
   }
 
-  /* ---------- Scroll reveal ---------- */
+  /* ---------- Scroll reveal (Apple-style easing) ---------- */
   var revealEls = document.querySelectorAll(".reveal");
   if (prefersReducedMotion || !("IntersectionObserver" in window)) {
     revealEls.forEach(function (el) { el.classList.add("visible"); });
@@ -91,9 +118,9 @@
   }
 
   /* ---------- Active nav link on scroll ---------- */
-  var sections = document.querySelectorAll("main section[id]");
+  var navSections = document.querySelectorAll("main section[id]");
   var navAnchors = document.querySelectorAll('.nav-links a[href^="#"]:not(.btn)');
-  if ("IntersectionObserver" in window && sections.length && navAnchors.length) {
+  if ("IntersectionObserver" in window && navSections.length && navAnchors.length) {
     var sectionObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
@@ -104,9 +131,9 @@
           });
         });
       },
-      { rootMargin: "-45% 0px -50% 0px" }
+      { threshold: 0.6 }
     );
-    sections.forEach(function (s) { sectionObserver.observe(s); });
+    navSections.forEach(function (s) { sectionObserver.observe(s); });
   }
 
   /* ---------- Contact form (mailto compose) ---------- */
@@ -224,6 +251,8 @@
   }
 
   /* ---------- Footer year ---------- */
-  var year = document.getElementById("year");
-  if (year) year.textContent = String(new Date().getFullYear());
+  var yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = String(new Date().getFullYear());
+  }
 })();
