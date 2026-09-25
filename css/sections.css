@@ -87,7 +87,8 @@
   }
 
   .hero {
-    padding-top: calc(var(--nav-h) + 40px);
+    padding-top: calc(var(--nav-h) + clamp(24px, 5vh, 40px));
+    padding-top: calc(var(--nav-h) + clamp(24px, 5svh, 40px));
   }
 
   .hero-eyebrow {
