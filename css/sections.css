@@ -657,6 +657,27 @@ section[data-theme="light"] .nav .nav-links a:not(.btn) {
   }
 }
 
+/* Hero still: a render of the hero pose, padded 20% so perspective never clips it.
+   Contained in the slot grown by the same 20%, it lands exactly where the live board
+   is fitted. It covers the canvas while that fades in, then steps aside; without a
+   live board (no JS, reduced motion, no WebGL, failure) it stays as the hero image. */
+.pcb-poster {
+  position: absolute;
+  left: -10%;
+  top: -10%;
+  width: 120%;
+  height: 120%;
+  max-width: none;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+.pcb-live .pcb-poster {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease 0.8s, visibility 0s linear 1.2s;
+}
+
 /* No live board (reduced motion, no WebGL, failure): collapse the empty stages. */
 .pcb-off .pcb-slot-wrapper,
 .pcb-failed .pcb-slot-wrapper {
