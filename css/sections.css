@@ -433,30 +433,6 @@
   }
 }
 
-/* ---------- Nav Material Switching ---------- */
-/* Nav changes color based on section theme */
-section[data-theme="dark"] ~ header.nav,
-section[data-theme="dark"] .nav {
-  background: rgba(0, 0, 0, 0.5);
-  color: var(--text-dark);
-}
-
-/* Light sections */
-section[data-theme="light"] {
-  background: var(--bg);
-}
-
-section[data-theme="light"] ~ header.nav,
-section[data-theme="light"] .nav {
-  background: rgba(255, 255, 255, 0.75);
-  color: var(--text);
-}
-
-section[data-theme="light"] ~ header.nav .nav-links a:not(.btn),
-section[data-theme="light"] .nav .nav-links a:not(.btn) {
-  color: var(--text);
-}
-
 /* ---------- Print Styles ---------- */
 @media print {
   .nav,
