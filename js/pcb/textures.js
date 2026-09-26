@@ -7,7 +7,7 @@
  * channel lines up pixel-for-pixel.
  */
 import * as THREE from 'three';
-import { BOARD, PARTS, footprint, xf, TRACES, VIAS, KEEPOUTS, ISLANDS, IS_REGION, SILK_TEXT, TEST_POINTS, FIDUCIALS, LABEL, LOGO } from './layout.js';
+import { BOARD, PARTS, footprint, xf, TRACES, VIAS, KEEPOUTS, ISLANDS, IS_REGION, SILK_TEXT, TEST_POINTS, FIDUCIALS, LABEL } from './layout.js';
 
 const FONT = '"Inter", "Helvetica Neue", Arial, sans-serif';
 
@@ -155,18 +155,6 @@ function designator(P, p, ink) {
   P.text(p.id, x, y, p.type === 'lqfp64' || p.type === 'rfmod' ? 1.25 : 0.95, ink, { weight: 600 });
 }
 
-function logo(P, ink, x, y, size) {
-  const c = P.ctx, u = size / 32, lw = 2 * u;
-  const sq = [[x - 10 * u, y + 10 * u], [x + 10 * u, y + 10 * u], [x + 10 * u, y - 10 * u], [x - 10 * u, y - 10 * u], [x - 10 * u, y + 10 * u]];
-  P.poly(sq, ink, lw);
-  for (const o of [-5, 0, 5]) {
-    P.poly([[x + o * u, y + 10 * u], [x + o * u, y + 14 * u]], ink, lw); P.poly([[x + o * u, y - 10 * u], [x + o * u, y - 14 * u]], ink, lw);
-    P.poly([[x - 10 * u, y + o * u], [x - 14 * u, y + o * u]], ink, lw); P.poly([[x + 10 * u, y + o * u], [x + 14 * u, y + o * u]], ink, lw);
-  }
-  P.text('S', x, y + 0.2 * u, 13 * u, ink, { weight: 700 });
-  c.lineWidth = 1;
-}
-
 function dataMatrix(P, ink, paper, x, y, w, h) {
   P.rect(x, y, w, h, 0, paper, 0.4);
   const n = 14, cell = (h * 0.62) / n, x0 = x - w / 2 + 0.6, y0 = y + (n * cell) / 2;
@@ -214,7 +202,6 @@ function paintTop(P, ink) {
   c.restore();
   P.text(r.label, r.x0 + 0.8, r.y1 - 0.95, 0.95, ink.silk, { weight: 700, align: 'left', spacing: 0.16 });
   for (const t of SILK_TEXT) if (t.size) P.text(t.t, t.x, t.y, t.size, ink.silk, { weight: t.weight || 600, align: t.align || 'center', spacing: t.spacing ?? 0.06 });
-  logo(P, ink.silk, LOGO.x, LOGO.y, LOGO.size);
   for (const t of TEST_POINTS) P.text(t.id, t.x, t.y - 1.6, 0.8, ink.silk);
 
   // Exposed ENIG copper
@@ -270,7 +257,6 @@ function paintBottom(P, ink) {
   for (const v of VIAS) { if (inText(v)) continue; P.circle(v.x, v.y, v.d / 2, ink.ring); P.circle(v.x, v.y, v.drill / 2, ink.hole); }
 
   // Silkscreen identity, centred like a product's underside
-  logo(P, ink.silk, 0, 12.5, 8);
   P.text('SANTRONICA', 0, 3.2, 4.6, ink.silk, { weight: 700, spacing: 0.3 });
   P.text('ELECTRONICS & INTRINSIC SAFETY DESIGN', 0, -1.6, 1.25, ink.silk, { weight: 600, spacing: 0.16 });
   P.text('SNT-100  ·  REV A  ·  4 LAYER  ·  1.6 MM  ·  ENIG', 0, -4.6, 0.95, ink.silk, { weight: 600, spacing: 0.12 });

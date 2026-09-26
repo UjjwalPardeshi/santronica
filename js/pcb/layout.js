@@ -335,7 +335,7 @@ export const TEST_POINTS = [
 ];
 export const FIDUCIALS = [[-37.8, 28.8], [47.2, -14.8], [-12.2, -29.6]];
 export const LABEL = { x: 14.4, y: 26.6, w: 6.4, h: 6.4 }; // DataMatrix sticker
-export const LOGO = { x: -37.4, y: 25.8, size: 5.2 };
+export const BRAND_STRIP = { x0: -40.6, y0: 22.6, x1: -14, y1: 29.6 }; // silk title area, kept clear of vias
 
 /* --------------------------------------------------------- occupancy grid */
 // Used to scatter ground-stitching vias only where nothing else lives.
@@ -371,7 +371,7 @@ export function buildOccupancy(cell = 0.5) {
   for (const t of TEST_POINTS) mark(t.x - 1.6, t.y - 1.6, t.x + 1.6, t.y + 1.6);
   for (const [fx, fy] of FIDUCIALS) mark(fx - 1.6, fy - 1.6, fx + 1.6, fy + 1.6);
   mark(LABEL.x - LABEL.w / 2 - 0.6, LABEL.y - LABEL.h / 2 - 0.6, LABEL.x + LABEL.w / 2 + 0.6, LABEL.y + LABEL.h / 2 + 0.6);
-  mark(LOGO.x - 3.2, LOGO.y - 3.2, -14, 29.6);
+  mark(BRAND_STRIP.x0, BRAND_STRIP.y0, BRAND_STRIP.x1, BRAND_STRIP.y1);
   mark(IS_REGION.x0 - 0.3, IS_REGION.y0 - 0.3, IS_REGION.x1 + 0.3, IS_REGION.y1 + 0.3);
   return { g, W, H, cell, free: (x, y) => { const i = Math.floor((x + 50) / cell), j = Math.floor((y + 32) / cell); return i >= 0 && j >= 0 && i < W && j < H && !g[j * W + i]; } };
 }
