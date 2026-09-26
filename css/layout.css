@@ -69,7 +69,7 @@
 }
 
 .hero-highlight {
-  color: var(--text-dark-2);
+  color: inherit;
 }
 
 .hero-sub {
