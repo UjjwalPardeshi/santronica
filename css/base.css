@@ -625,9 +625,10 @@ html.pcb-debug .pcb-slot::after {
     height: calc(100vh - var(--nav-h));
     height: calc(100dvh - var(--nav-h));
     flex-direction: column;
+    align-items: stretch;
     gap: 0;
     background: var(--bg);
-    padding: 20px;
+    padding: 12px 22px 32px;
     max-height: calc(100vh - var(--nav-h));
     overflow-y: auto;
     transform: translateX(100%);
@@ -635,7 +636,7 @@ html.pcb-debug .pcb-slot::after {
   }
 
   .nav.nav--dark .nav-links {
-    background: color-mix(in srgb, var(--dark-bg) 96%, transparent);
+    background: var(--bg-dark);
   }
 
   .nav-links.open {
@@ -643,17 +644,25 @@ html.pcb-debug .pcb-slot::after {
   }
 
   .nav-links a:not(.btn) {
-    padding: 12px 0;
+    font-size: 17px;
+    padding: 16px 0;
     border-bottom: 1px solid var(--hairline);
+  }
+
+  .nav-links a:not(.btn)::after {
+    display: none;
   }
 
   .nav.nav--dark .nav-links a:not(.btn) {
     border-bottom-color: var(--hairline-dark);
   }
 
-  .nav-cta {
+  .nav-links .nav-cta {
     margin-left: 0;
-    margin-top: 16px;
+    margin-top: 24px;
     display: block;
+    text-align: center;
+    font-size: 15px;
+    padding: 14px 20px;
   }
 }

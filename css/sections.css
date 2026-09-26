@@ -317,6 +317,10 @@
     padding: 0 16px;
   }
 
+  .nav-links {
+    padding-inline: 16px;
+  }
+
   .badge {
     font-size: 10px;
     padding: 5px 10px;
