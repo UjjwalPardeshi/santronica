@@ -63,7 +63,7 @@
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--accent-dark);
+  color: var(--accent);
   margin-bottom: 16px;
   display: block;
 }
@@ -89,13 +89,13 @@
 
 .hero-ctas .btn-ghost {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid var(--hairline-dark-strong);
   color: var(--text-dark);
 }
 
 .hero-ctas .btn-ghost:hover {
   border-color: var(--text-dark);
-  background: rgba(255, 255, 255, 0.05);
+  background: color-mix(in srgb, var(--dark-text) 5%, transparent);
 }
 
 .hero-badges {
@@ -109,8 +109,8 @@
 .hero-stats {
   margin-top: clamp(40px, 8vh, 80px);
   margin-top: clamp(40px, 8svh, 80px);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid var(--hairline-dark);
+  background: color-mix(in srgb, var(--dark-surface) 55%, transparent);
 }
 
 .stats-grid {
@@ -135,7 +135,7 @@
 }
 
 .stat-plus {
-  color: var(--accent-dark);
+  color: var(--accent);
 }
 
 .stat-text {
@@ -179,12 +179,26 @@
   width: 100%;
   height: auto;
   border-radius: var(--radius-lg);
-  background: var(--bg-alt);
+  background: var(--card);
   object-fit: cover;
+  filter: var(--photo-filter);
+}
+
+:root {
+  --photo-filter: grayscale(1) contrast(1.06);
 }
 
 .media-image-accent {
   transform: translateY(20px);
+}
+
+.card {
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline-strong);
+}
+
+.card p {
+  color: var(--text-2);
 }
 
 /* ---------- Services Section ---------- */
@@ -197,19 +211,15 @@
 }
 
 .pillar {
-  background: white;
+  background: var(--card-alt);
   padding: 36px 28px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--hairline);
   transition: box-shadow 0.3s ease;
 }
 
-.section-alt .pillar {
-  background: white;
-}
-
 .pillar:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-soft);
 }
 
 .pillar-head {
@@ -221,8 +231,28 @@
   color: var(--text);
 }
 
-.pillar-is {
-  border: 1px solid var(--amber);
+/* Intrinsic safety / Ex: the practice's specialism, set apart as an inverted graphite card.
+   Its interactive colour flips to silver so checks and Ex tags stay legible. */
+.pillar.pillar-is,
+.tile.tile-ex,
+.deliv-card.deliv-is {
+  --action: var(--accent);
+  --on-action: var(--on-accent);
+  background: var(--accent-ink);
+  border-color: var(--accent-ink);
+  color: var(--on-accent-ink);
+}
+
+.pillar.pillar-is h3,
+.tile.tile-ex h3,
+.deliv-card.deliv-is h3 {
+  color: var(--on-accent-ink);
+}
+
+.pillar.pillar-is .check-list,
+.tile.tile-ex p,
+.deliv-card.deliv-is .check-list {
+  color: var(--accent);
 }
 
 .check-list {
@@ -243,7 +273,7 @@
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--accent);
+  color: var(--action);
   font-weight: 600;
 }
 
@@ -253,21 +283,22 @@
 }
 
 .tile {
-  background: var(--bg-alt);
+  background: var(--card);
   padding: 32px 28px;
   border-radius: var(--radius-lg);
+  border: 1px solid var(--hairline);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .section-dark .tile {
   background: var(--tile-dark);
   color: var(--text-dark);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-color: var(--hairline-dark);
 }
 
 .tile:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .tile h3 {
@@ -285,17 +316,10 @@
   color: var(--text-dark-2);
 }
 
-.tile-ex {
-  border: 1px solid var(--amber);
-}
-
-.tile-ex h3 {
-  color: var(--text);
-}
-
 /* ---------- Showcase ---------- */
 .showcase-card {
   background: var(--tile-dark);
+  border: 1px solid var(--hairline-dark);
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -303,20 +327,29 @@
 
 .showcase-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-dark);
 }
 
 .showcase-art {
   width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.05);
+  background: color-mix(in srgb, var(--dark-text) 5%, transparent);
 }
 
 .showcase-art img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  filter: var(--photo-filter);
+  transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+@media (hover: hover) {
+  .showcase-card:hover .showcase-art img {
+    filter: none;
+    transform: scale(1.02);
+  }
 }
 
 .showcase-card figcaption {
@@ -342,7 +375,7 @@
 }
 
 .deliv-card {
-  background: var(--bg-alt);
+  background: var(--card);
   padding: 36px 28px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--hairline);
@@ -351,10 +384,6 @@
 .deliv-card h3 {
   font-size: 18px;
   margin-bottom: 20px;
-}
-
-.deliv-is {
-  border: 1px solid var(--amber);
 }
 
 .tools-wrap {
@@ -388,13 +417,16 @@
 .timeline li {
   position: relative;
   padding-left: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--hairline-strong);
 }
 
 .step-num {
   display: block;
   font-size: 28px;
-  font-weight: 600;
-  color: var(--accent);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-2);
   line-height: 1.2;
   margin-bottom: 12px;
 }
@@ -450,19 +482,25 @@
 }
 
 .contact-list a {
-  color: var(--accent);
+  color: var(--text);
   font-weight: 500;
-  transition: color 0.2s ease;
+  text-decoration: underline;
+  text-decoration-color: var(--hairline-strong);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease;
 }
 
 .contact-list a:hover {
-  color: #005580;
+  text-decoration-color: currentColor;
 }
 
 .contact-form {
-  background: var(--bg-alt);
+  background: var(--card);
   padding: 36px;
   border-radius: var(--radius-lg);
+  border: 1px solid var(--hairline);
+  box-shadow: var(--shadow-soft);
 }
 
 .form-row {
@@ -484,7 +522,8 @@
 
 /* ---------- Footer ---------- */
 .footer {
-  background: var(--bg-alt);
+  background: var(--bg-dark);
+  color: var(--text-dark);
   padding: 60px 0 0;
 }
 
@@ -493,7 +532,7 @@
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
   gap: 40px;
   padding-bottom: 40px;
-  border-bottom: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline-dark);
 }
 
 .brand-footer {
@@ -503,7 +542,7 @@
 
 .footer-blurb {
   font-size: 14px;
-  color: var(--text-2);
+  color: var(--text-dark-2);
   line-height: 1.6;
   max-width: 320px;
 }
@@ -517,29 +556,29 @@
 .footer-links h3 {
   font-size: 14px;
   font-weight: 600;
-  color: var(--text);
+  color: var(--text-dark);
   margin-bottom: 4px;
 }
 
 .footer-links a {
   font-size: 14px;
-  color: var(--text-2);
+  color: var(--text-dark-2);
   transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
-  color: var(--accent);
+  color: var(--text-dark);
 }
 
 .footer-muted {
   font-size: 14px;
-  color: var(--text-2);
+  color: var(--text-dark-2);
 }
 
 .footer-bar {
   padding: 24px 0;
   font-size: 13px;
-  color: var(--text-2);
+  color: var(--text-dark-2);
   text-align: center;
 }
 

@@ -2,30 +2,65 @@
    Santronica Page-B — Minimalistic Apple-style Design
    ============================================================ */
 
-/* ---------- Tokens (Apple-style palette) ---------- */
+/* ---------- Tokens ---------- */
 :root {
-  --bg:            #ffffff;
-  --bg-alt:        #f5f5f7;
-  --bg-dark:       #000000;
-  --tile-dark:     #1d1d1f;
+  /* Palette: graphite & silver. Every colour on the site derives from these twelve. */
+  --dark-bg:        #0E1012;
+  --dark-surface:   #171A1D;
+  --dark-text:      #F1F3F5;
+  --dark-muted:     #9AA1A9;
+  --light-bg:       #F6F7F8;
+  --light-surface:  #FFFFFF;
+  --light-text:     #121417;
+  --light-muted:    #5E656D;
+  --accent:         #C9CFD6;
+  --on-accent:      #0E1012;
+  --accent-ink:     #2A2F36;
+  --on-accent-ink:  #FFFFFF;
 
-  --text:          #1d1d1f;
-  --text-2:        #6e6e73;
-  --text-dark:     #f5f5f7;
-  --text-dark-2:   #a1a1a6;
+  /* Surfaces. Default sections sit on --bg with white cards; alternate sections flip that. */
+  --bg:             var(--light-bg);
+  --bg-alt:         var(--light-surface);
+  --card:           var(--light-surface);
+  --card-alt:       var(--light-bg);
+  --bg-dark:        var(--dark-bg);
+  --tile-dark:      var(--dark-surface);
 
-  --accent:        #006e96;
-  --accent-dark:   #00b4d8;
-  --amber:         #a35600;
-  --amber-dark:    #f5a524;
-  --hairline:      rgba(0, 0, 0, 0.08);
-  --hairline-dark: rgba(255, 255, 255, 0.12);
+  --text:           var(--light-text);
+  --text-2:         var(--light-muted);
+  --text-dark:      var(--dark-text);
+  --text-dark-2:    var(--dark-muted);
+
+  --hairline:             color-mix(in srgb, var(--light-text) 8%, transparent);
+  --hairline-strong:      color-mix(in srgb, var(--light-text) 16%, transparent);
+  --hairline-dark:        color-mix(in srgb, var(--dark-text) 10%, transparent);
+  --hairline-dark-strong: color-mix(in srgb, var(--dark-text) 22%, transparent);
+
+  --shadow-soft: 0 1px 2px color-mix(in srgb, var(--light-text) 4%, transparent),
+                 0 18px 40px -22px color-mix(in srgb, var(--light-text) 22%, transparent);
+  --shadow-dark: 0 1px 2px color-mix(in srgb, var(--dark-bg) 60%, transparent),
+                 0 28px 60px -28px color-mix(in srgb, var(--dark-bg) 92%, transparent);
+
+  /* Interactive colour: graphite ink on light ground, silver on dark ground. */
+  --action:        var(--accent-ink);
+  --on-action:     var(--on-accent-ink);
+  --action-hover:  var(--light-text);
 
   --radius-sm:     20px;
   --radius-lg:     28px;
 
   --nav-h:         52px;
   --container:     980px;
+}
+
+/* Dark grounds swap the interactive pair to silver. */
+.hero,
+.section-dark,
+.footer,
+.nav.nav--dark {
+  --action:        var(--accent);
+  --on-action:     var(--on-accent);
+  --action-hover:  var(--dark-text);
 }
 
 @media (max-width: 768px) {
@@ -42,6 +77,7 @@
 }
 
 html {
+  background: var(--bg-dark);
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 16px);
 }
@@ -53,6 +89,11 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
 img, svg {
@@ -125,7 +166,7 @@ p {
 }
 
 .section-dark .eyebrow {
-  color: var(--accent-dark);
+  color: var(--accent);
 }
 
 .section-dark h2,
@@ -145,7 +186,7 @@ p {
   right: 0;
   height: var(--nav-h);
   z-index: 100;
-  background: rgba(255, 255, 255, 0.75);
+  background: color-mix(in srgb, var(--light-bg) 80%, transparent);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--hairline);
@@ -153,13 +194,13 @@ p {
 }
 
 .nav.nav--dark {
-  background: rgba(0, 0, 0, 0.5);
+  background: color-mix(in srgb, var(--dark-bg) 66%, transparent);
   border-bottom-color: var(--hairline-dark);
   color: var(--text-dark);
 }
 
 .nav.nav--dark .nav-links a:not(.btn) {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--text-dark-2);
 }
 
 .nav.nav--dark .nav-links a:not(.btn):hover,
@@ -168,7 +209,7 @@ p {
 }
 
 .nav.nav--dark .nav-links a:not(.btn)::after {
-  background: var(--accent-dark);
+  background: var(--accent);
 }
 
 .nav-inner {
@@ -199,7 +240,7 @@ p {
 }
 
 .nav-links a:not(.btn) {
-  color: var(--text);
+  color: var(--text-2);
   font-size: 13px;
   font-weight: 500;
   transition: color 0.2s ease;
@@ -214,13 +255,13 @@ p {
   right: 100%;
   bottom: 0;
   height: 1px;
-  background: var(--accent);
+  background: var(--action);
   transition: right 0.2s ease;
 }
 
 .nav-links a:not(.btn):hover,
 .nav-links a:not(.btn).active {
-  color: var(--accent);
+  color: var(--text);
 }
 
 .nav-links a:not(.btn):hover::after,
@@ -245,7 +286,7 @@ p {
   border-radius: 999px;
   border: none;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   font-family: inherit;
 }
 
@@ -254,23 +295,23 @@ p {
 }
 
 .btn-accent {
-  background: var(--accent);
-  color: white;
+  background: var(--action);
+  color: var(--on-action);
 }
 
 .btn-accent:hover {
-  background: #005580;
+  background: var(--action-hover);
 }
 
 .btn-ghost {
   background: transparent;
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--text-dark);
+  border: 1px solid var(--hairline-dark-strong);
 }
 
 .btn-ghost:hover {
-  border-color: white;
-  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-dark);
+  background: color-mix(in srgb, var(--dark-text) 5%, transparent);
 }
 
 .btn-small {
@@ -291,12 +332,23 @@ p {
 /* ---------- Typography Helpers ---------- */
 .eyebrow {
   display: inline-block;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-2);
   margin-bottom: 12px;
+}
+
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 22px;
+  height: 1px;
+  margin-right: 10px;
+  vertical-align: middle;
+  background: currentColor;
+  opacity: 0.55;
 }
 
 .section-lead {
@@ -320,24 +372,22 @@ p {
   border-radius: 999px;
   border: 1px solid var(--hairline);
   color: var(--text);
-  background: var(--bg-alt);
-  transition: all 0.2s ease;
+  background: var(--card);
+  transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.badge-amber {
-  border-color: var(--amber);
-  color: var(--amber);
-}
-
+.hero .badge,
 .section-dark .badge {
   border-color: var(--hairline-dark);
   color: var(--text-dark);
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--tile-dark);
 }
 
-.section-dark .badge-amber {
-  border-color: var(--amber-dark);
-  color: var(--amber-dark);
+/* Ex / hazardous-area emphasis: a solid pill in the interactive colour. */
+.badge.badge-ex {
+  border-color: var(--action);
+  background: var(--action);
+  color: var(--on-action);
 }
 
 .tag-ex {
@@ -345,14 +395,12 @@ p {
   font-size: 11px;
   font-weight: 600;
   margin-left: 8px;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: var(--amber);
-  color: white;
-}
-
-.section-dark .tag-ex {
-  background: var(--amber-dark);
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 6px;
+  vertical-align: 0.15em;
+  background: var(--action);
+  color: var(--on-action);
 }
 
 /* ---------- Chip Tags ---------- */
@@ -368,15 +416,15 @@ p {
   font-size: 14px;
   padding: 8px 12px;
   border-radius: 999px;
-  background: var(--bg-alt);
+  background: var(--card);
   color: var(--text);
   border: 1px solid var(--hairline);
 }
 
-.chip-amber {
-  background: rgba(163, 86, 0, 0.08);
-  color: var(--amber);
-  border-color: var(--amber);
+.chip-tag.chip-ex {
+  background: transparent;
+  color: var(--action);
+  border-color: var(--action);
 }
 
 /* ---------- Skip Link ---------- */
@@ -384,8 +432,8 @@ p {
   position: absolute;
   left: -9999px;
   top: 0;
-  background: var(--accent);
-  color: white;
+  background: var(--accent-ink);
+  color: var(--on-accent-ink);
   padding: 12px 20px;
   z-index: 200;
   font-weight: 600;
@@ -415,21 +463,27 @@ textarea,
 select {
   width: 100%;
   padding: 12px 16px;
-  border: 1px solid var(--hairline);
-  border-radius: 8px;
+  border: 1px solid var(--hairline-strong);
+  border-radius: 10px;
   font-family: inherit;
   font-size: 16px;
-  background: var(--bg);
+  background: var(--light-bg);
   color: var(--text);
-  transition: border-color 0.2s ease;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+::placeholder {
+  color: var(--text-2);
+  opacity: 0.8;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(0, 110, 150, 0.1);
+  background: var(--light-surface);
+  border-color: var(--action);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--action) 14%, transparent);
 }
 
 textarea {
@@ -500,8 +554,8 @@ html.pcb-debug .pcb-slot::after {
 
 /* ---------- Accessibility ---------- */
 :focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline: 2px solid var(--action);
+  outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -578,7 +632,7 @@ html.pcb-debug .pcb-slot::after {
   }
 
   .nav.nav--dark .nav-links {
-    background: rgba(0, 0, 0, 0.9);
+    background: color-mix(in srgb, var(--dark-bg) 96%, transparent);
   }
 
   .nav-links.open {
