@@ -620,7 +620,10 @@ html.pcb-debug .pcb-slot::after {
     top: var(--nav-h);
     left: 0;
     right: 0;
-    bottom: 0;
+    /* The nav's backdrop-filter makes it the containing block for this fixed panel,
+       so "bottom: 0" would end it at the nav's own bottom edge. Size it explicitly. */
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
     flex-direction: column;
     gap: 0;
     background: var(--bg);
