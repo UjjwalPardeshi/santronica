@@ -59,53 +59,30 @@
 }
 
 .hero-eyebrow {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 16px;
   display: block;
-}
-
-.hero-highlight {
-  color: inherit;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 450;
+  color: var(--accent);
+  margin-bottom: 22px;
 }
 
 .hero-sub {
-  margin-top: 20px;
-  max-width: 640px;
-  font-size: 17px;
+  margin-top: 24px;
+  max-width: 34em;
+  font-size: 17.5px;
   color: var(--text-dark-2);
-  line-height: 1.53;
+  line-height: 1.6;
 }
 
 .hero-ctas {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin-top: 32px;
+  margin-top: 36px;
 }
 
-.hero-ctas .btn-ghost {
-  background: transparent;
-  border: 1px solid var(--hairline-dark-strong);
-  color: var(--text-dark);
-}
-
-.hero-ctas .btn-ghost:hover {
-  border-color: var(--text-dark);
-  background: color-mix(in srgb, var(--dark-text) 5%, transparent);
-}
-
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 32px;
-}
-
-/* Hero Stats */
+/* Hero band: key figures, then the standards the team designs to. */
 .hero-stats {
   margin-top: clamp(40px, 8vh, 80px);
   margin-top: clamp(40px, 8svh, 80px);
@@ -117,18 +94,22 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  padding: 48px 0;
+  padding: 40px 0 36px;
 }
 
 .stat {
   text-align: left;
+  padding-left: 20px;
+  border-left: 1px solid var(--hairline-dark);
 }
 
 .stat-num,
 .stat-plus,
 .stat-text {
-  font-size: clamp(24px, 3vw, 32px);
+  font-size: clamp(26px, 3.2vw, 38px);
   font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
   color: var(--text-dark);
   /* Fixed-width digits so the count-up animation doesn't jiggle the line. */
   font-variant-numeric: tabular-nums;
@@ -145,21 +126,31 @@
 .stat-label {
   display: block;
   margin-top: 8px;
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
   color: var(--text-dark-2);
-  line-height: 1.4;
+  line-height: 1.45;
 }
 
-@media (max-width: 768px) {
-  .hero {
-    padding-top: calc(var(--nav-h) + 40px);
-  }
+.hero-standards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  padding: 22px 0 30px;
+  border-top: 1px solid var(--hairline-dark);
+}
 
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-    padding: 40px 0;
-  }
+.standards-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text-dark-2);
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 /* ---------- About/Why Section ---------- */
