@@ -10,7 +10,7 @@
   }
 
   h2 {
-    font-size: clamp(28px, 6vw, 44px);
+    font-size: clamp(28px, 5.4vw, 40px);
   }
 
   .grid-4 {
@@ -23,7 +23,7 @@
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
+    gap: 32px 24px;
   }
 
   .timeline {
@@ -32,7 +32,7 @@
 
   .contact-grid {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 48px;
   }
 
   .form-row {
@@ -44,12 +44,41 @@
     gap: 32px;
   }
 
-  .why-media {
+  /* Services: heading above its list. */
+  .pillar {
     grid-template-columns: 1fr;
+    padding: 32px;
   }
 
-  .media-image-accent {
-    transform: translateY(0);
+  /* Industries: two columns; the wide and the hazardous-area tiles take a full row each. */
+  .industries-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .industries-grid .tile-wide,
+  .industries-grid .tile-ex {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .industries-grid .tile-ex {
+    min-height: 220px;
+  }
+
+  /* Showcase: the feature card runs full width above the other two. */
+  .showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .showcase-card:first-child {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .showcase-card:first-child .showcase-art {
+    flex: none;
+    aspect-ratio: 16 / 8;
+    min-height: 0;
   }
 }
 
@@ -57,15 +86,15 @@
 @media (max-width: 768px) {
   h1 {
     font-size: clamp(30px, 9vw, 48px);
-    line-height: 1.08;
+    line-height: 1.06;
   }
 
   h2 {
-    font-size: clamp(26px, 7.2vw, 36px);
+    font-size: clamp(27px, 7.4vw, 36px);
   }
 
   h3 {
-    font-size: clamp(16px, 4vw, 21px);
+    font-size: clamp(16px, 4vw, 20px);
   }
 
   p {
@@ -77,13 +106,12 @@
   }
 
   .eyebrow {
-    font-size: 12px;
     margin-bottom: 10px;
   }
 
   .section-lead {
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .hero {
@@ -93,12 +121,18 @@
 
   .hero-eyebrow {
     font-size: 12px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    margin-top: 18px;
   }
 
   .hero-ctas {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
+    margin-top: 28px;
   }
 
   .hero-ctas .btn {
@@ -110,20 +144,23 @@
   }
 
   .badge {
-    font-size: 11px;
-    padding: 6px 12px;
+    font-size: 11.5px;
+    padding: 6px 11px;
   }
 
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    padding: 32px 0;
+    gap: 28px 20px;
+    padding: 32px 0 28px;
+  }
+
+  .stat {
+    padding-left: 14px;
   }
 
   .stat-num,
   .stat-plus,
   .stat-text {
-    font-size: 20px;
+    font-size: 24px;
   }
 
   .stat-label {
@@ -131,79 +168,85 @@
     margin-top: 6px;
   }
 
+  .hero-standards {
+    padding: 20px 0 26px;
+  }
+
+  .media-image-accent {
+    transform: translateY(32px);
+  }
+
+  .why-facts {
+    margin-top: 56px;
+    gap: 28px;
+  }
+
   .pillar {
-    padding: 28px 20px;
+    padding: 26px 22px;
+    gap: 16px;
   }
 
   .pillar-head h3 {
-    font-size: 16px;
+    font-size: 19px;
   }
 
   .check-list {
-    font-size: 14px;
+    font-size: 15px;
     gap: 10px;
   }
 
   .tile {
-    padding: 24px 20px;
+    padding: 24px 22px;
   }
 
   .tile h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 17px;
   }
 
   .tile p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
-  .card {
-    background: transparent;
-    padding: 0;
+  .industries-grid .tile-ex {
+    padding: 26px 22px;
   }
 
   .card h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 17px;
   }
 
   .card p {
-    font-size: 14px;
-  }
-
-  .showcase-card {
-    margin-bottom: 16px;
-  }
-
-  .showcase-art {
-    aspect-ratio: 16 / 9;
+    font-size: 15px;
   }
 
   .showcase-card figcaption {
-    padding: 20px 16px;
+    padding: 20px 20px 24px;
   }
 
   .showcase-card h3 {
-    font-size: 16px;
-    margin-bottom: 6px;
+    font-size: 18px;
   }
 
   .showcase-card p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .deliv-card {
-    padding: 24px 20px;
+    padding: 26px 22px;
   }
 
   .deliv-card h3 {
-    font-size: 16px;
-    margin-bottom: 16px;
+    font-size: 18px;
+    margin-bottom: 18px;
   }
 
-  .tool-group h3 {
-    font-size: 14px;
-    margin-bottom: 12px;
+  .tools-wrap {
+    margin-top: 64px;
+    padding-top: 44px;
+  }
+
+  .tools-grid {
+    gap: 28px;
   }
 
   .chips {
@@ -211,45 +254,33 @@
   }
 
   .chip-tag {
-    font-size: 13px;
-    padding: 6px 10px;
+    font-size: 13.5px;
+    padding: 6px 12px;
   }
 
   .timeline {
     grid-template-columns: 1fr;
-    gap: 24px;
-    margin-top: 32px;
-  }
-
-  .step-num {
-    font-size: 24px;
-    margin-bottom: 10px;
+    gap: 32px;
   }
 
   .timeline h3 {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 18px;
   }
 
   .timeline p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .contact-info h2 {
     margin-bottom: 16px;
   }
 
-  .contact-list {
-    margin-top: 24px;
-  }
-
   .contact-list li {
-    font-size: 14px;
-    margin-bottom: 12px;
+    font-size: 15px;
   }
 
   .contact-form {
-    padding: 24px;
+    padding: 24px 20px;
   }
 
   .field {
@@ -265,48 +296,61 @@
   textarea,
   select {
     font-size: 16px;
-    padding: 10px 12px;
-  }
-
-  .btn {
-    font-size: 14px;
-    padding: 10px 18px;
+    padding: 11px 13px;
   }
 
   .footer {
-    padding: 40px 0 0;
+    padding: 48px 0 0;
   }
 
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding-bottom: 24px;
-  }
-
-  .footer-blurb {
-    font-size: 13px;
-  }
-
-  .footer-links h3 {
-    font-size: 13px;
-  }
-
-  .footer-links a {
-    font-size: 13px;
+    gap: 28px;
+    padding-bottom: 28px;
   }
 
   .footer-bar {
-    padding: 16px 0;
+    padding: 18px 0 22px;
     font-size: 12px;
   }
 }
 
-/* ---------- Phones: one column for tiles, cards and chip groups ----------
-   (the tablet rule above keeps two columns down to 601px; below that they get too narrow) */
+/* ---------- Phones: one column for every grid ----------
+   (the tablet rules above keep two columns down to 601px; below that they get too narrow) */
 @media (max-width: 600px) {
   .grid-3,
-  .grid-4 {
+  .grid-4,
+  .industries-grid,
+  .showcase-grid {
     grid-template-columns: 1fr;
+  }
+
+  .industries-grid .tile-wide {
+    grid-column: auto;
+  }
+
+  .industries-grid .tile-ex {
+    min-height: 0;
+  }
+
+  .showcase-card:first-child .showcase-art {
+    aspect-ratio: 16 / 10;
+  }
+
+  .pillar .check-list {
+    columns: 1;
+  }
+
+  .why-media {
+    grid-template-columns: 1fr;
+  }
+
+  .media-image-accent {
+    transform: none;
+  }
+
+  .why-facts {
+    margin-top: 40px;
   }
 }
 
@@ -322,7 +366,7 @@
   }
 
   .badge {
-    font-size: 10px;
+    font-size: 11px;
     padding: 5px 10px;
   }
 
@@ -333,90 +377,17 @@
 }
 
 /* ---------- Specific Section Styling ---------- */
-
-/* Why Section - Two column layout on desktop */
 @media (min-width: 1025px) {
-  .why-text {
-    padding-top: 0;
-  }
-}
-
-/* Services - three pillars */
-@media (min-width: 1025px) {
-  .pillars {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 1024px) {
-  .pillars {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .pillars {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Industries */
-@media (min-width: 1025px) {
+  .why-text,
   .industries-text {
     padding-top: 0;
   }
-}
 
-/* Showcase - Dark background, photo cards */
-.section-dark {
-  background: var(--bg-dark);
-}
-
-
-/* Deliverables - Two column grid */
-@media (min-width: 1025px) {
-  .deliverables-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 1024px) {
-  .deliverables-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .deliverables-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Process - Timeline grid */
-@media (min-width: 1025px) {
-  .timeline {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 1024px) {
-  .timeline {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .timeline {
-    grid-template-columns: 1fr;
-  }
-}
-
-  .reveal.is-pending {
-    opacity: 1;
+  /* Hero band lines up with the wider hero above it. */
+  .hero-stats > .container {
+    width: min(1200px, 100% - 44px);
   }
 
-/* Contact - Form styling */
-@media (min-width: 1025px) {
   .contact-grid {
     grid-template-columns: 1fr 1fr;
     gap: 80px;
@@ -440,6 +411,10 @@
     background: white;
   }
 
+  .reveal.is-pending {
+    opacity: 1;
+  }
+
   .section {
     page-break-inside: avoid;
   }
@@ -456,7 +431,7 @@
   }
 
   h2 {
-    font-size: 72px;
+    font-size: 64px;
   }
 
   .stats-grid {
@@ -489,12 +464,6 @@
     min-width: 44px;
     min-height: 44px;
   }
-}
-
-/* ---------- Light/Dark Mode Support ---------- */
-@media (prefers-color-scheme: dark) {
-  /* Fallback for systems that support dark mode preference */
-  /* But we use data-theme attributes instead */
 }
 
 /* ---------- Contrast Mode ---------- */
@@ -567,7 +536,6 @@
 }
 .container > .pcb-head--flip {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    grid-row: 1;
 }
 .container > .pcb-head--flip > .pcb-slot-wrapper {
   order: -1;
@@ -595,6 +563,7 @@
   }
   .hero-inner > :not(.hero-pcb-slot) {
     grid-column: 1;
+    grid-row: 1;
   }
   .hero-pcb-slot {
     grid-column: 2;
