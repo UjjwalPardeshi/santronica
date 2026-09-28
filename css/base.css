@@ -260,20 +260,20 @@ p {
 
 .brand-name {
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   font-size: 13px;
 }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 26px;
 }
 
 .nav-links a:not(.btn) {
   color: var(--text-2);
-  font-size: 13px;
-  font-weight: 500;
+  font-size: 13.5px;
+  font-weight: 450;
   transition: color 0.2s ease;
   position: relative;
   padding: 4px 0;
@@ -287,7 +287,7 @@ p {
   bottom: 0;
   height: 1px;
   background: var(--action);
-  transition: right 0.2s ease;
+  transition: right 0.35s var(--ease-out);
 }
 
 .nav-links a:not(.btn):hover,
@@ -305,24 +305,27 @@ p {
 }
 
 .nav-cta {
-  margin-left: 12px;
+  margin-left: 10px;
 }
 
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-block;
   font-weight: 500;
-  font-size: 14px;
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: none;
+  font-size: 14.5px;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  padding: 11px 22px;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.35s var(--ease-out), background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   font-family: inherit;
 }
 
 .btn:active {
-  transform: scale(0.97);
+  transform: scale(0.98);
 }
 
 .btn-accent {
@@ -337,7 +340,7 @@ p {
 .btn-ghost {
   background: transparent;
   color: var(--text-dark);
-  border: 1px solid var(--hairline-dark-strong);
+  border-color: var(--hairline-dark-strong);
 }
 
 .btn-ghost:hover {
@@ -346,7 +349,7 @@ p {
 }
 
 .btn-small {
-  padding: 8px 16px;
+  padding: 7px 16px;
   font-size: 13px;
 }
 
