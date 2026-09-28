@@ -2,6 +2,23 @@
    Santronica Page-B — Minimalistic Apple-style Design
    ============================================================ */
 
+/* ---------- Fonts: Geist + Geist Mono, self-hosted (SIL OFL, see fonts/OFL.txt) ---------- */
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/geist-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("../fonts/geist-mono-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ---------- Tokens ---------- */
 :root {
   /* Palette: graphite & silver. Every colour on the site derives from these twelve. */
@@ -48,8 +65,17 @@
   --on-action:     var(--on-accent-ink);
   --action-hover:  var(--light-text);
 
-  --radius-sm:     20px;
-  --radius-lg:     28px;
+  /* Type: Geist for everything read, Geist Mono for codes, figures and small labels. */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Shape rule: containers and photos use --radius-lg, form fields --radius-field,
+     and everything you click or read as a label (buttons, badges, chips, tags) is a pill. */
+  --radius-lg:     20px;
+  --radius-field:  12px;
+  --radius-pill:   999px;
+
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
 
   --nav-h:         52px;
   --container:     980px;
@@ -67,7 +93,7 @@
 
 @media (max-width: 768px) {
   :root {
-    --radius-lg: 20px;
+    --radius-lg: 16px;
   }
 }
 
@@ -85,11 +111,12 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans);
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
@@ -120,26 +147,28 @@ h1, h2, h3 {
 
 h1 {
   font-size: clamp(44px, 6vw, 80px);
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  line-height: 1.04;
+  letter-spacing: -0.045em;
   text-wrap: balance;
 }
 
 h2 {
-  font-size: clamp(34px, 5vw, 56px);
-  line-height: 1.07;
+  font-size: clamp(32px, 4.4vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
   margin-bottom: 2rem;
   text-wrap: balance;
 }
 
 h3 {
-  font-size: clamp(18px, 2.5vw, 24px);
-  letter-spacing: -0.01em;
+  font-size: clamp(18px, 2.5vw, 22px);
+  letter-spacing: -0.015em;
 }
 
 p {
   font-size: 17px;
-  line-height: 1.47;
+  line-height: 1.55;
+  text-wrap: pretty;
 }
 
 /* ---------- Container & Utilities ---------- */
