@@ -672,56 +672,56 @@
   }
 }
 
-/* ---------- Reveal Animation ---------- */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  animation: reveal 0.9s cubic-bezier(0.28, 0.11, 0.32, 1) forwards;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* ---------- Reveal ----------
+   The hero rises in on load. Further down, js/main.js holds items back (.is-pending) until
+   they scroll into view (.is-in); without the script nothing is hidden. The animation moves
+   the independent `translate` property, so hover lifts and offsets on `transform` stay free. */
 @keyframes reveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  from {
+    opacity: 0;
+    translate: 0 20px;
+  }
+}
+
+.hero .reveal,
+.reveal.is-in {
+  animation: reveal 0.9s var(--ease-out) backwards;
+}
+
+.reveal.is-pending {
+  opacity: 0;
+}
+
+/* Staggered reveal for siblings */
+.hero-copy > .reveal:nth-child(2) { animation-delay: 70ms; }
+.hero-copy > .reveal:nth-child(3) { animation-delay: 140ms; }
+.hero-copy > .reveal:nth-child(4) { animation-delay: 210ms; }
+
+.grid > .reveal:nth-child(2),
+.stats-grid > .reveal:nth-child(2),
+.timeline > .reveal:nth-child(2) { animation-delay: 70ms; }
+.grid > .reveal:nth-child(3),
+.stats-grid > .reveal:nth-child(3),
+.timeline > .reveal:nth-child(3) { animation-delay: 140ms; }
+.grid > .reveal:nth-child(4),
+.stats-grid > .reveal:nth-child(4),
+.timeline > .reveal:nth-child(4) { animation-delay: 210ms; }
+.grid > .reveal:nth-child(5),
+.timeline > .reveal:nth-child(5) { animation-delay: 280ms; }
+.grid > .reveal:nth-child(6),
+.timeline > .reveal:nth-child(6) { animation-delay: 350ms; }
+
+@media (max-width: 768px) {
+  .grid > .reveal,
+  .timeline > .reveal {
+    animation-delay: 0ms !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal.is-pending {
     animation: none;
     opacity: 1;
-    transform: none;
-  }
-}
-
-/* Staggered reveal for child elements */
-.grid .reveal,
-.timeline .reveal {
-  animation-delay: 0ms;
-}
-
-.grid .reveal:nth-child(1) { animation-delay: 0ms; }
-.grid .reveal:nth-child(2) { animation-delay: 60ms; }
-.grid .reveal:nth-child(3) { animation-delay: 120ms; }
-.grid .reveal:nth-child(4) { animation-delay: 180ms; }
-.grid .reveal:nth-child(5) { animation-delay: 240ms; }
-.grid .reveal:nth-child(6) { animation-delay: 300ms; }
-
-.timeline .reveal:nth-child(1) { animation-delay: 0ms; }
-.timeline .reveal:nth-child(2) { animation-delay: 100ms; }
-.timeline .reveal:nth-child(3) { animation-delay: 200ms; }
-.timeline .reveal:nth-child(4) { animation-delay: 300ms; }
-.timeline .reveal:nth-child(5) { animation-delay: 400ms; }
-.timeline .reveal:nth-child(6) { animation-delay: 500ms; }
-
-@media (max-width: 768px) {
-  .grid .reveal,
-  .timeline .reveal {
-    animation-delay: 0ms !important;
   }
 }

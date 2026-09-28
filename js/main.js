@@ -4,33 +4,48 @@
 
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Nav material switching (dark/light) ---------- */
+  /* ---------- Nav material switching (dark/light) ----------
+     A 1px observation line at the nav's vertical centre: whichever themed block
+     crosses it sets the nav's material. No scroll listener needed. */
   var nav = document.querySelector(".nav");
-  var sections = document.querySelectorAll("section[data-theme]");
+  var themed = document.querySelectorAll("[data-theme]");
 
-  function updateNavTheme() {
-    if (!nav || !sections.length) return;
-    var scrollY = window.scrollY;
-    var currentTheme = "light";
-
-    for (var i = 0; i < sections.length; i++) {
-      var section = sections[i];
-      var rect = section.getBoundingClientRect();
-      var sectionTop = scrollY + rect.top;
-      var navCenter = scrollY + nav.offsetHeight / 2;
-
-      if (navCenter >= sectionTop && navCenter < sectionTop + rect.height) {
-        currentTheme = section.getAttribute("data-theme") || "light";
-        break;
-      }
-    }
-
-    nav.classList.toggle("nav--dark", currentTheme === "dark");
-    nav.classList.toggle("nav--light", currentTheme === "light");
+  function setNavTheme(theme) {
+    nav.classList.toggle("nav--dark", theme === "dark");
+    nav.classList.toggle("nav--light", theme !== "dark");
   }
 
-  window.addEventListener("scroll", updateNavTheme, { passive: true });
-  updateNavTheme();
+  if (nav && themed.length && "IntersectionObserver" in window) {
+    var themeObserver = null;
+    var watchNavTheme = function () {
+      if (themeObserver) themeObserver.disconnect();
+      var line = Math.round(nav.offsetHeight / 2);
+      // Set the right material straight away; the observer only reports changes asynchronously.
+      for (var i = 0; i < themed.length; i++) {
+        var r = themed[i].getBoundingClientRect();
+        if (r.top <= line && r.bottom > line) {
+          setNavTheme(themed[i].getAttribute("data-theme"));
+          break;
+        }
+      }
+      var below = Math.max(0, window.innerHeight - line - 1);
+      themeObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) setNavTheme(entry.target.getAttribute("data-theme"));
+          });
+        },
+        { rootMargin: "-" + line + "px 0px -" + below + "px 0px" }
+      );
+      themed.forEach(function (el) { themeObserver.observe(el); });
+    };
+    var resizeTimer = null;
+    window.addEventListener("resize", function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(watchNavTheme, 150);
+    });
+    watchNavTheme();
+  }
 
   /* ---------- Mobile menu ---------- */
   var toggle = document.getElementById("navToggle");
@@ -56,23 +71,30 @@
     });
   }
 
-  /* ---------- Scroll reveal (Apple-style easing) ---------- */
-  var revealEls = document.querySelectorAll(".reveal");
-  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-    revealEls.forEach(function (el) { el.classList.add("visible"); });
-  } else {
+  /* ---------- Scroll reveal ----------
+     The hero animates on load from CSS alone. Below it, items that start off-screen are
+     held back (.is-pending) and rise in (.is-in) as they scroll into view. Items already
+     on screen are left alone, so nothing flashes. */
+  var revealEls = document.querySelectorAll("main > section:not(.hero) .reveal");
+  if (!prefersReducedMotion && "IntersectionObserver" in window) {
     var revealObserver = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+            entry.target.classList.remove("is-pending");
+            entry.target.classList.add("is-in");
             revealObserver.unobserve(entry.target);
           }
         });
       },
       { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
     );
-    revealEls.forEach(function (el) { revealObserver.observe(el); });
+    var fold = window.innerHeight;
+    revealEls.forEach(function (el) {
+      if (el.getBoundingClientRect().top < fold) return;
+      el.classList.add("is-pending");
+      revealObserver.observe(el);
+    });
   }
 
   /* ---------- Stat counters ---------- */

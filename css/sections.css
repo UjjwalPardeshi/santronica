@@ -411,6 +411,10 @@
   }
 }
 
+  .reveal.is-pending {
+    opacity: 1;
+  }
+
 /* Contact - Form styling */
 @media (min-width: 1025px) {
   .contact-grid {
