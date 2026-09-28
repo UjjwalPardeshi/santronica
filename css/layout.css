@@ -359,55 +359,70 @@
   margin-top: 0;
 }
 
-/* ---------- Showcase ---------- */
 .showcase-card {
+  display: flex;
+  flex-direction: column;
   background: var(--tile-dark);
   border: 1px solid var(--hairline-dark);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out);
+}
+
+.showcase-card:first-child {
+  grid-row: span 2;
 }
 
 .showcase-card:hover {
-  transform: translateY(-8px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-dark);
 }
 
 .showcase-art {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   background: color-mix(in srgb, var(--dark-text) 5%, transparent);
+}
+
+.showcase-card:first-child .showcase-art {
+  flex: 1;
+  aspect-ratio: auto;
+  min-height: 320px;
 }
 
 .showcase-art img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.9s var(--ease-out);
 }
 
 @media (hover: hover) {
   .showcase-card:hover .showcase-art img {
-    transform: scale(1.02);
+    transform: scale(1.04);
   }
 }
 
 .showcase-card figcaption {
-  padding: 28px 24px;
+  padding: 24px 26px 28px;
   color: var(--text-dark);
 }
 
 .showcase-card h3 {
-  font-size: 18px;
+  font-size: 19px;
   margin-bottom: 8px;
   color: var(--text-dark);
+}
+
+.showcase-card:first-child h3 {
+  font-size: clamp(20px, 2.2vw, 24px);
 }
 
 .showcase-card p {
   font-size: 15px;
   color: var(--text-dark-2);
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 /* ---------- Deliverables ---------- */
