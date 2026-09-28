@@ -153,29 +153,37 @@
   gap: 8px;
 }
 
-/* ---------- About/Why Section ---------- */
+/* ---------- Why ---------- */
 .why-text {
   padding-top: 12px;
 }
 
 .why-media {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
   gap: 24px;
-  margin-top: 40px;
+  align-items: start;
+  margin-top: 8px;
 }
 
 .media-image,
 .media-image-accent {
   width: 100%;
   height: auto;
+  aspect-ratio: 3 / 2;
   border-radius: var(--radius-lg);
   background: var(--card);
   object-fit: cover;
 }
 
+/* The smaller photo sits lower than the large one, so the pair reads as a composition, not a row. */
 .media-image-accent {
-  transform: translateY(20px);
+  transform: translateY(56px);
+}
+
+.why-facts {
+  margin-top: 72px;
+  gap: 32px;
 }
 
 .card {
@@ -183,7 +191,13 @@
   border-top: 1px solid var(--hairline-strong);
 }
 
+.card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
 .card p {
+  font-size: 15.5px;
   color: var(--text-2);
 }
 
