@@ -201,38 +201,51 @@
   color: var(--text-2);
 }
 
-/* ---------- Services Section ---------- */
+/* ---------- Services: one full-width row per pillar ---------- */
 .services-head > div:first-child {
   padding-top: 12px;
 }
 
 .pillars {
-  margin-top: 48px;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 0;
 }
 
 .pillar {
+  display: grid;
+  grid-template-columns: minmax(0, 0.55fr) minmax(0, 2fr);
+  gap: 20px 40px;
+  align-items: start;
   background: var(--card-alt);
-  padding: 36px 28px;
+  padding: 36px 40px;
   border-radius: var(--radius-lg);
   border: 1px solid var(--hairline);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.4s var(--ease-out);
 }
 
 .pillar:hover {
   box-shadow: var(--shadow-soft);
 }
 
-.pillar-head {
-  margin-bottom: 20px;
-}
-
 .pillar-head h3 {
-  font-size: 18px;
+  font-size: 22px;
   color: var(--text);
 }
 
+.pillar .check-list {
+  display: block;
+  columns: 2;
+  column-gap: 40px;
+}
+
+.pillar .check-list li {
+  break-inside: avoid;
+  margin-bottom: 12px;
+}
+
 /* Intrinsic safety / Ex: the practice's specialism, set apart as an inverted graphite card.
-   Its interactive colour flips to silver so checks and Ex tags stay legible. */
+   Its interactive colour flips to silver so pads and Ex tags stay legible. */
 .pillar.pillar-is,
 .tile.tile-ex,
 .deliv-card.deliv-is {
@@ -259,22 +272,26 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  font-size: 15px;
+  font-size: 15.5px;
   color: var(--text-2);
   line-height: 1.5;
 }
 
 .check-list li {
-  padding-left: 24px;
+  padding-left: 20px;
   position: relative;
 }
 
+/* A small square pad, centred on the first line. */
 .check-list li::before {
-  content: "✓";
+  content: "";
   position: absolute;
   left: 0;
-  color: var(--action);
-  font-weight: 600;
+  top: calc(0.75em - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  background: var(--action);
 }
 
 /* ---------- Industries Section ---------- */
