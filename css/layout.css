@@ -720,6 +720,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
+  .hero .reveal,
+  .reveal.is-in,
   .reveal.is-pending {
     animation: none;
     opacity: 1;
