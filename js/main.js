@@ -184,7 +184,9 @@
   // REQUEST_TIMEOUT_MS. The timer also covers reading the body. Promise.race keeps the timeout
   // working in browsers without AbortController; where it exists, the request is cancelled too.
   function sendEnquiry(payload) {
-    var controller = typeof AbortController === "function" ? new AbortController() : null;
+    // Absent or broken AbortController: no cancelling, but the race below still settles the send.
+    var controller = null;
+    try { controller = new AbortController(); } catch (e) { controller = null; }
     var timer = null;
     var timeout = new Promise(function (resolve, reject) {
       timer = setTimeout(function () {
