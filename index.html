@@ -132,11 +132,11 @@
       <div class="hero-stats">
         <div class="container stats-grid">
           <div class="stat reveal">
-            <span class="stat-num" data-count="20">0</span><span class="stat-plus">+</span>
+            <span class="stat-num" data-count="20">20</span><span class="stat-plus">+</span>
             <span class="stat-label">Years of Design Experience</span>
           </div>
           <div class="stat reveal">
-            <span class="stat-num" data-count="5">0</span>
+            <span class="stat-num" data-count="5">5</span>
             <span class="stat-label">Specialist Engineers</span>
           </div>
           <div class="stat reveal">
@@ -148,6 +148,8 @@
             <span class="stat-label">Certified Engineers</span>
           </div>
         </div>
+        <!-- The markup holds the real figures for crawlers and no-JS readers; with JS they start at 0 and main.js counts up. -->
+        <script>(function () { var n = document.querySelectorAll(".stat-num[data-count]"); for (var i = 0; i < n.length; i++) { n[i].textContent = "0"; } })();</script>
       </div>
     </section>
 
