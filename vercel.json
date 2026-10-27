@@ -2,6 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "santronica\\.vercel\\.app" }],
+      "destination": "https://santronica.com/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/images/(.*)",
