@@ -41,7 +41,7 @@ jobs:
 
           const SITE = process.env.SITE_URL || 'https://santronica.com/';
           // Never reach the contact-form backend: every real submission emails the owner.
-          const FORM_BACKEND = /^https:\/\/formsubmit\.co\//;
+          const FORM_BACKEND = /^https?:\/\/(?:[^/]*\.)?formsubmit\.co\.?(?::\d+)?\//;
 
           const problems = [];
           const browser = await chromium.launch({
