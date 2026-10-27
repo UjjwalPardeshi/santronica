@@ -5,14 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0E1012">
   <title>Santronica | Electronics &amp; Intrinsic Safety Design Services</title>
-  <meta name="description" content="Santronica provides electronics design, embedded software, and intrinsic safety (IEC 60079) consulting — schematic &amp; PCB layout, prototyping, compliance support and Zone 0/1 product certification guidance for clients in the US and India.">
+  <meta name="description" content="Electronics design, embedded software and IEC 60079 intrinsic safety consulting for US and India clients: PCB layout, prototyping, compliance, Zone 0/1 design.">
   <link rel="canonical" href="https://santronica.com/">
+  <meta name="robots" content="max-image-preview:large">
+  <meta property="og:site_name" content="Santronica">
+  <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://santronica.com/">
-  <meta property="og:title" content="Santronica — Electronics & Intrinsic Safety Design Services">
-  <meta property="og:description" content="From concept to certified product: schematics, PCB layout, embedded software, and IEC 60079 intrinsic safety expertise.">
+  <meta property="og:title" content="Santronica | Electronics &amp; Intrinsic Safety Design Services">
+  <meta property="og:description" content="Electronics design, embedded software and IEC 60079 intrinsic safety consulting for US and India clients: PCB layout, prototyping, compliance, Zone 0/1 design.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://santronica.com/images/og-preview.jpg">
-  <link rel="icon" href="data:,">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Close-up of a populated printed circuit board with a large surface-mount chip and electrolytic capacitors">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Santronica | Electronics &amp; Intrinsic Safety Design Services">
+  <meta name="twitter:description" content="Electronics design, embedded software and IEC 60079 intrinsic safety consulting for US and India clients: PCB layout, prototyping, compliance, Zone 0/1 design.">
+  <meta name="twitter:image" content="https://santronica.com/images/og-preview.jpg">
+  <meta name="twitter:image:alt" content="Close-up of a populated printed circuit board with a large surface-mount chip and electrolytic capacitors">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
   <script>
     (function (d) {
       var h = d.documentElement; h.classList.add("js");
@@ -34,13 +49,33 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Santronica",
-    "url": "https://santronica.com",
-    "description": "Electronics & Intrinsic Safety Design Services — schematic & PCB design, embedded software, and IEC 60079 intrinsic safety consulting.",
-    "email": "admin@santronica.com",
-    "areaServed": ["United States", "India"],
-    "knowsAbout": ["Electronics Design", "PCB Layout", "Embedded Software", "Intrinsic Safety", "IEC 60079", "Hazardous Locations"]
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://santronica.com/#organization",
+        "name": "Santronica",
+        "url": "https://santronica.com/",
+        "description": "Electronics design, embedded software and IEC 60079 intrinsic safety consulting for clients in the US and India: schematic and PCB layout, prototyping, compliance support and Zone 0/1 product design.",
+        "email": "admin@santronica.com",
+        "numberOfEmployees": { "@type": "QuantitativeValue", "value": 5 },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "admin@santronica.com",
+          "contactType": "sales",
+          "availableLanguage": "English"
+        },
+        "areaServed": ["United States", "India"],
+        "knowsAbout": ["Electronics Design", "PCB Layout", "Embedded Software", "Intrinsic Safety", "IEC 60079", "Hazardous Locations"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://santronica.com/#website",
+        "url": "https://santronica.com/",
+        "name": "Santronica",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://santronica.com/#organization" }
+      }
+    ]
   }
   </script>
 </head>
@@ -75,7 +110,7 @@
       <div class="container hero-inner">
         <div class="hero-copy">
           <p class="hero-eyebrow reveal">Electronics &middot; Embedded Software &middot; Intrinsic Safety</p>
-          <h1 class="reveal">Electronics &amp; Intrinsic Safety<br>Design Services</h1>
+          <h1 class="reveal">Electronics &amp; Intrinsic Safety <br>Design Services</h1>
           <p class="hero-sub reveal">A senior team of Ex-certified engineers taking your product from concept to certified reality: schematics, PCB layout, embedded software, and IEC&nbsp;60079 intrinsic safety for devices that must not fail.</p>
           <div class="hero-ctas reveal">
             <a href="#contact" class="btn btn-accent">Start a Project</a>
@@ -90,11 +125,11 @@
       <div class="hero-stats">
         <div class="container stats-grid">
           <div class="stat reveal">
-            <span class="stat-num" data-count="20">0</span><span class="stat-plus">+</span>
+            <span class="stat-num" data-count="20">20</span><span class="stat-plus">+</span>
             <span class="stat-label">Years of Design Experience</span>
           </div>
           <div class="stat reveal">
-            <span class="stat-num" data-count="5">0</span>
+            <span class="stat-num" data-count="5">5</span>
             <span class="stat-label">Specialist Engineers</span>
           </div>
           <div class="stat reveal">
@@ -106,6 +141,8 @@
             <span class="stat-label">Certified Engineers</span>
           </div>
         </div>
+        <!-- The markup holds the real figures for crawlers and no-JS readers; with JS (and motion allowed) they start at 0 and main.js counts up. -->
+        <script>(function () { if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; var n = document.querySelectorAll(".stat-num[data-count]"); for (var i = 0; i < n.length; i++) { n[i].textContent = "0"; } })();</script>
         <div class="container hero-standards reveal">
           <p class="standards-label" id="standardsLabel">Compliance and standards expertise</p>
           <ul class="hero-badges" aria-labelledby="standardsLabel">
@@ -452,16 +489,16 @@
             <div class="form-row">
               <div class="field">
                 <label for="cf-name">Name</label>
-                <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="formNote">
+                <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required aria-describedby="formNote">
               </div>
               <div class="field">
                 <label for="cf-email">Email</label>
-                <input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="formNote">
+                <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="formNote">
               </div>
             </div>
             <div class="field">
               <label for="cf-company">Company <span class="optional">(optional)</span></label>
-              <input id="cf-company" name="company" type="text" autocomplete="organization">
+              <input id="cf-company" name="company" type="text" autocomplete="organization" maxlength="120">
             </div>
             <div class="field">
               <label for="cf-area">Project area</label>
@@ -476,7 +513,7 @@
             </div>
             <div class="field">
               <label for="cf-message">Project brief</label>
-              <textarea id="cf-message" name="message" rows="5" required aria-describedby="formNote" placeholder="What are you building, and what stage are you at?"></textarea>
+              <textarea id="cf-message" name="message" rows="5" maxlength="5000" required aria-describedby="formNote" placeholder="What are you building, and what stage are you at?"></textarea>
             </div>
             <button type="submit" class="btn btn-accent btn-block">Send Enquiry</button>
             <p class="form-note" id="formNote" role="status"></p>
@@ -523,7 +560,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=3"></script>
+  <script src="js/main.js?v=4"></script>
   <script type="module">
     if (document.documentElement.classList.contains("pcb")) {
       import("./js/pcb3d.js").catch(function () { document.documentElement.classList.add("pcb-failed"); });

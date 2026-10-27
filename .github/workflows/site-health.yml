@@ -1,0 +1,80 @@
+# Uptime and TLS monitor for https://santronica.com.
+# Scheduled workflows only run from the default branch (main). A failed run shows as a red X in the
+# Actions tab and emails whoever last changed the cron line. GitHub pauses schedules in public repos
+# after 60 days without repository activity, so keep an external monitor as well.
+name: site-health
+
+on:
+  schedule:
+    # Minutes 7 and 37: GitHub delays scheduled runs at the top of the hour under load.
+    - cron: "7,37 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-health
+  cancel-in-progress: false
+
+jobs:
+  uptime:
+    name: apex, redirects, brand marker, TLS expiry
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Run checks
+        env:
+          SITE: https://santronica.com
+          VERCEL_APP: https://santronica.vercel.app
+        run: |
+          set -uo pipefail
+          UA="santronica-uptime/1.0 (+https://github.com/UjjwalPardeshi/santronica)"
+          CURL=(curl -sS --max-time 20 --retry 2 --retry-delay 5 --retry-all-errors -A "$UA")
+          failures=0
+          fail() { echo "::error title=site-health::$*"; failures=$((failures + 1)); }
+
+          # 1. Apex returns 200 with the brand marker that sits in both the header and the footer.
+          page="$(mktemp)"
+          code="$("${CURL[@]}" -o "$page" -w '%{http_code}' "$SITE/")" || code=000
+          if [ "$code" != "200" ]; then
+            fail "apex returned HTTP $code (want 200)"
+          elif ! grep -q '>SANTRONICA<' "$page"; then
+            fail "apex body is missing the SANTRONICA brand marker"
+          else
+            echo "apex: HTTP 200 with brand marker"
+          fi
+          rm -f "$page"
+
+          # 2. http:// and www. must 308 to the canonical https apex. Redirects are not followed.
+          for src in http://santronica.com/ https://www.santronica.com/; do
+            read -r code loc < <("${CURL[@]}" -o /dev/null -w '%{http_code} %{redirect_url}\n' "$src" || echo "000 ")
+            if [ "$code" != "308" ] || [ "$loc" != "https://santronica.com/" ]; then
+              fail "$src returned $code -> '$loc' (want 308 -> https://santronica.com/)"
+            else
+              echo "$src: 308 -> $loc"
+            fi
+          done
+
+          # 3. santronica.vercel.app must 308 to the apex (vercel.json host redirect).
+          read -r code loc < <("${CURL[@]}" -o /dev/null -w '%{http_code} %{redirect_url}\n' "$VERCEL_APP/" || echo "000 ")
+          if [ "$code" != "308" ] || [ "$loc" != "https://santronica.com/" ]; then
+            fail "santronica.vercel.app returned $code -> '$loc' (want 308 -> https://santronica.com/)"
+          else
+            echo "vercel.app: 308 -> $loc"
+          fi
+
+          # 4. TLS certificate must stay valid for more than 14 days (1209600 seconds).
+          cert="$(echo | timeout 20 openssl s_client -servername santronica.com -connect santronica.com:443 2>/dev/null | openssl x509 2>/dev/null || true)"
+          if [ -z "$cert" ]; then
+            fail "could not read the TLS certificate for santronica.com"
+          else
+            echo "$cert" | openssl x509 -noout -enddate
+            echo "$cert" | openssl x509 -noout -checkend 1209600 >/dev/null || fail "TLS certificate expires within 14 days"
+          fi
+
+          if [ "$failures" -gt 0 ]; then
+            echo "::error title=site-health::$failures check(s) failed"
+            exit 1
+          fi
+          echo "all checks passed"
