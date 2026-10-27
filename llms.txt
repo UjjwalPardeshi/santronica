@@ -1,0 +1,35 @@
+# Santronica
+
+> Electronics and intrinsic safety design services for clients in the US and India: electronics and embedded software design, PCB layout, prototyping, compliance testing support, and IEC 60079 intrinsic safety consulting, including design consultancy for Zone 0/1 products and certification guidance.
+
+Santronica is a team of five people with more than 20 years of experience in new product design, testing and consulting. It works in niche areas and provides customized solutions at any project stage to meet each client's business needs. Its engineers are Ex Comp certified (Ex competence certification).
+
+The website is a single page. The links from Services to Contact are sections of https://santronica.com/. Contact: admin@santronica.com
+
+## Services
+
+- [Services](https://santronica.com/#services): Electronics design: design consulting, prototyping, schematic and PCB layout, functional and integration testing, support in CE, UL and FDA compliance testing, obsolescence management and porting, retrofit of old boards. Software and mechanical design: embedded software, board bring-up and test software, webserver and web application design, Android and iOS apps, software maintenance, test fixture and enclosure design. Intrinsic safety: consulting and workshops, design consultancy for Zone 0/1 products, intrinsic safe design review, support in protection circuits and layouts, technical files as per OD 17, certification guidance, encapsulation and conformal coating.
+
+## Industries
+
+- [Industries](https://santronica.com/#industries): IoT and wireless connectivity, industrial electronics, medical electronics, switchgear and remote terminal units, process automation, and hazardous locations.
+
+## Deliverables
+
+- [Deliverables](https://santronica.com/#deliverables): Electronics projects: proof of concept, design consultancy, schematics, layouts and bill of materials, DXF files and source code, test reports, prototypes. Intrinsic safety projects: design consultancy, technical file, schematics, layouts and bill of materials, initial prototype.
+
+## Process
+
+- [Process](https://santronica.com/#process): Requirement discussion, NDA signing, kick-off meeting, schedule and deliverables discussion, execution and delivery, then feedback and support.
+
+## Tools and standards
+
+- [Tools and standards](https://santronica.com/#tools): Microcontrollers and microprocessors, Altium and OrCAD EDA tools, circuit simulation, IEC 610xx standards, C and Python, webserver and mobile app connectivity, Power BI, and intrinsic safety standards IEC 60079-0, IEC 60079-1 and IEC 60079-11.
+
+## About
+
+- [Why Santronica](https://santronica.com/#why): Team of five with more than 20 years of experience, customized solutions at any project stage, Ex Comp certified engineers, clients in the US and India.
+
+## Contact
+
+- [Contact](https://santronica.com/#contact): Project enquiry form, or email admin@santronica.com. Clients are served across the US and India.
