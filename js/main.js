@@ -147,7 +147,7 @@
   // paste is not cut silently; this check asks the visitor to shorten it instead.
   var FIELD_LIMITS = { name: 100, email: 254, company: 120, message: 5000 };
   var FIELD_LABELS = { name: "name", email: "email address", company: "company name", message: "project brief" };
-  var REQUEST_TIMEOUT_MS = 30000; // generous, so a slow but successful send is not also sent by mailto
+  var REQUEST_TIMEOUT_MS = 30000; // long enough that a slow send rarely also ends in the mailto fallback
   var SENT_COOLDOWN_MS = 60000;   // after a successful send, block another enquiry for one minute
 
   var sending = false;   // in-flight guard: true from submit until the request settles
