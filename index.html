@@ -148,8 +148,8 @@
             <span class="stat-label">Certified Engineers</span>
           </div>
         </div>
-        <!-- The markup holds the real figures for crawlers and no-JS readers; with JS they start at 0 and main.js counts up. -->
-        <script>(function () { var n = document.querySelectorAll(".stat-num[data-count]"); for (var i = 0; i < n.length; i++) { n[i].textContent = "0"; } })();</script>
+        <!-- The markup holds the real figures for crawlers and no-JS readers; with JS (and motion allowed) they start at 0 and main.js counts up. -->
+        <script>(function () { if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; var n = document.querySelectorAll(".stat-num[data-count]"); for (var i = 0; i < n.length; i++) { n[i].textContent = "0"; } })();</script>
       </div>
     </section>
 
