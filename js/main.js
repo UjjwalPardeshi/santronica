@@ -151,7 +151,7 @@
   var SENT_COOLDOWN_MS = 60000;   // after a successful send, block another enquiry for one minute
 
   var sending = false;   // in-flight guard: true from submit until the request settles
-  var cooldownUntil = 0; // timestamp in ms; 0 means no cooldown
+  var cooldownUntil = 0; // performance.now() deadline in ms; 0 means no cooldown
 
   function fieldValue(name) {
     var el = form && form.elements[name];
@@ -245,7 +245,7 @@
       }
 
       // An enquiry was just sent: block an immediate second one.
-      if (Date.now() < cooldownUntil) {
+      if (performance.now() < cooldownUntil) {
         setNote("Your enquiry has already been sent. Please wait a minute before sending another.");
         return;
       }
@@ -315,7 +315,7 @@
       })
         .then(function () {
           form.reset();
-          cooldownUntil = Date.now() + SENT_COOLDOWN_MS;
+          cooldownUntil = performance.now() + SENT_COOLDOWN_MS;
           // Clear aria-busy before writing the note so screen readers announce it.
           setSending(false);
           setNote("Thank you — your enquiry has been sent. We'll get back to you shortly.");
