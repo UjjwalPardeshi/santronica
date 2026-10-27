@@ -1,0 +1,100 @@
+# Daily headless smoke test for https://santronica.com.
+# Fails on any console error, uncaught page error, failed request or HTTP 4xx/5xx response.
+# Requests to formsubmit.co are blocked on purpose: the form is never submitted by this test.
+# Playwright is pinned to 1.64.0 (released 2026-10-07).
+name: site-smoke
+
+on:
+  schedule:
+    # Daily at 06:17 UTC, away from the top-of-hour load spike.
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-smoke
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    name: load, scroll, collect errors
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Install Playwright 1.64.0 and Chromium
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/smoke"
+          cd "$RUNNER_TEMP/smoke"
+          npm init -y >/dev/null
+          npm install --no-audit --no-fund --save-exact playwright@1.64.0
+          npx playwright install --with-deps chromium
+
+      - name: Write and run the smoke test
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/smoke"
+          cat > smoke.mjs <<'EOF'
+          import { chromium } from 'playwright';
+
+          const SITE = process.env.SITE_URL || 'https://santronica.com/';
+          // Never reach the contact-form backend: every real submission emails the owner.
+          const FORM_BACKEND = /^https:\/\/formsubmit\.co\//;
+
+          const problems = [];
+          const browser = await chromium.launch({
+            args: [
+              '--use-gl=angle',
+              '--use-angle=swiftshader',
+              '--enable-unsafe-swiftshader',
+              '--ignore-gpu-blocklist',
+              '--disable-checker-imaging',
+            ],
+          });
+          const context = await browser.newContext({ userAgent: 'santronica-smoke/1.0 (github-actions)' });
+          await context.route(FORM_BACKEND, (route) => route.abort('blockedbyclient'));
+          const page = await context.newPage();
+
+          page.on('console', (msg) => {
+            const url = msg.location().url || '';
+            if (msg.type() === 'error') {
+              problems.push(`console error: ${msg.text()} ${url}`.trim());
+            }
+          });
+          page.on('pageerror', (err) => problems.push(`page error: ${err.message}`));
+          page.on('requestfailed', (req) => {
+            if (!FORM_BACKEND.test(req.url())) {
+              problems.push(`failed request: ${req.url()} (${req.failure()?.errorText ?? 'unknown'})`);
+            }
+          });
+          page.on('response', (res) => {
+            const url = res.url();
+            if (res.status() >= 400 && !FORM_BACKEND.test(url)) {
+              problems.push(`HTTP ${res.status()}: ${url}`);
+            }
+          });
+
+          const response = await page.goto(SITE, { waitUntil: 'networkidle', timeout: 60000 });
+          if (!response || response.status() !== 200) {
+            problems.push(`document returned HTTP ${response ? response.status() : 'no response'}`);
+          }
+
+          // Scroll the whole page once so the below-the-fold code paths run.
+          await page.evaluate(async () => {
+            for (let y = 0; y < document.body.scrollHeight; y += 400) {
+              window.scrollTo(0, y);
+              await new Promise((resolve) => setTimeout(resolve, 150));
+            }
+          });
+          await new Promise((resolve) => setTimeout(resolve, 1500));
+          await browser.close();
+
+          if (problems.length > 0) {
+            console.error(`site smoke test failed (${problems.length}):\n- ${problems.join('\n- ')}`);
+            process.exit(1);
+          }
+          console.log('site smoke test passed: no console errors, page errors or failed requests');
+          EOF
+          node smoke.mjs
