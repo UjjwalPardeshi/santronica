@@ -50,13 +50,33 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Santronica",
-    "url": "https://santronica.com",
-    "description": "Electronics & Intrinsic Safety Design Services — schematic & PCB design, embedded software, and IEC 60079 intrinsic safety consulting.",
-    "email": "admin@santronica.com",
-    "areaServed": ["United States", "India"],
-    "knowsAbout": ["Electronics Design", "PCB Layout", "Embedded Software", "Intrinsic Safety", "IEC 60079", "Hazardous Locations"]
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://santronica.com/#organization",
+        "name": "Santronica",
+        "url": "https://santronica.com/",
+        "description": "Electronics design, embedded software and IEC 60079 intrinsic safety consulting for clients in the US and India: schematic and PCB layout, prototyping, compliance support and Zone 0/1 product design.",
+        "email": "admin@santronica.com",
+        "numberOfEmployees": { "@type": "QuantitativeValue", "value": 5 },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "admin@santronica.com",
+          "contactType": "sales",
+          "availableLanguage": "English"
+        },
+        "areaServed": ["United States", "India"],
+        "knowsAbout": ["Electronics Design", "PCB Layout", "Embedded Software", "Intrinsic Safety", "IEC 60079", "Hazardous Locations"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://santronica.com/#website",
+        "url": "https://santronica.com/",
+        "name": "Santronica",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://santronica.com/#organization" }
+      }
+    ]
   }
   </script>
 </head>
