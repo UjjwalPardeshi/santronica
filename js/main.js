@@ -313,13 +313,16 @@
         .then(function () {
           form.reset();
           cooldownUntil = Date.now() + SENT_COOLDOWN_MS;
+          // Clear aria-busy before writing the note so screen readers announce it.
+          setSending(false);
           setNote("Thank you — your enquiry has been sent. We'll get back to you shortly.");
         }, function () {
           // Not confirmed as delivered (HTTP error, success:"false", network error or timeout):
           // keep the mailto fallback so the enquiry still reaches the business.
+          setSending(false);
           mailtoFallback();
         })
-        .then(function () { setSending(false); }, function () { setSending(false); });
+        .then(null, function () { setSending(false); });
     });
   }
 
