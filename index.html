@@ -485,16 +485,16 @@
             <div class="form-row">
               <div class="field">
                 <label for="cf-name">Name</label>
-                <input id="cf-name" name="name" type="text" autocomplete="name" required aria-describedby="formNote">
+                <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required aria-describedby="formNote">
               </div>
               <div class="field">
                 <label for="cf-email">Email</label>
-                <input id="cf-email" name="email" type="email" autocomplete="email" required aria-describedby="formNote">
+                <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="254" required aria-describedby="formNote">
               </div>
             </div>
             <div class="field">
               <label for="cf-company">Company <span class="optional">(optional)</span></label>
-              <input id="cf-company" name="company" type="text" autocomplete="organization">
+              <input id="cf-company" name="company" type="text" autocomplete="organization" maxlength="120">
             </div>
             <div class="field">
               <label for="cf-area">Project area</label>
@@ -509,7 +509,7 @@
             </div>
             <div class="field">
               <label for="cf-message">Project brief</label>
-              <textarea id="cf-message" name="message" rows="5" required aria-describedby="formNote" placeholder="What are you building, and what stage are you at?"></textarea>
+              <textarea id="cf-message" name="message" rows="5" maxlength="5000" required aria-describedby="formNote" placeholder="What are you building, and what stage are you at?"></textarea>
             </div>
             <button type="submit" class="btn btn-accent btn-block">Send Enquiry</button>
             <p class="form-note" id="formNote" role="status"></p>
@@ -556,7 +556,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=2"></script>
+  <script src="js/main.js?v=3"></script>
   <script type="module">
     if (document.documentElement.classList.contains("pcb")) {
       import("./js/pcb3d.js").catch(function () { document.documentElement.classList.add("pcb-failed"); });

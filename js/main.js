@@ -136,9 +136,21 @@
     navSections.forEach(function (s) { sectionObserver.observe(s); });
   }
 
-  /* ---------- Contact form (mailto compose) ---------- */
+  /* ---------- Contact form (FormSubmit AJAX, mailto fallback) ---------- */
   var form = document.getElementById("contactForm");
   var note = document.getElementById("formNote");
+  var submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+  var sendLabel = submitBtn ? submitBtn.textContent : "Send Enquiry";
+
+  // Limits mirror the maxlength attributes in index.html. maxlength does not stop values
+  // set by script, autofill or drag and drop, so the same limits are checked here too.
+  var FIELD_LIMITS = { name: 100, email: 254, company: 120, message: 5000 };
+  var FIELD_LABELS = { name: "name", email: "email address", company: "company name", message: "project brief" };
+  var REQUEST_TIMEOUT_MS = 30000; // generous, so a slow but successful send is not also sent by mailto
+  var SENT_COOLDOWN_MS = 60000;   // after a successful send, block another enquiry for one minute
+
+  var sending = false;   // in-flight guard: true from submit until the request settles
+  var cooldownUntil = 0; // timestamp in ms; 0 means no cooldown
 
   function fieldValue(name) {
     var el = form && form.elements[name];
@@ -150,34 +162,115 @@
     if (el && el.setAttribute) el.setAttribute("aria-invalid", invalid ? "true" : "false");
   }
 
+  function setNote(text) {
+    if (note) note.textContent = text;
+  }
+
+  function setSending(busy) {
+    sending = busy;
+    if (form) {
+      if (busy) form.setAttribute("aria-busy", "true");
+      else form.removeAttribute("aria-busy");
+    }
+    if (submitBtn) {
+      submitBtn.disabled = busy;
+      submitBtn.textContent = busy ? "Sending…" : sendLabel;
+    }
+  }
+
+  // Resolves only on an explicit success:"true". Rejects on a network error, a non-2xx status,
+  // an unreadable body, any other success value, or when no complete answer arrives within
+  // REQUEST_TIMEOUT_MS. The timer also covers reading the body. Promise.race keeps the timeout
+  // working in browsers without AbortController; where it exists, the request is cancelled too.
+  function sendEnquiry(payload) {
+    var controller = typeof AbortController === "function" ? new AbortController() : null;
+    var timer = null;
+    var timeout = new Promise(function (resolve, reject) {
+      timer = setTimeout(function () {
+        if (controller) controller.abort();
+        reject(new Error("timeout"));
+      }, REQUEST_TIMEOUT_MS);
+    });
+    var request = Promise.resolve()
+      .then(function () {
+        return fetch("https://formsubmit.co/ajax/admin@santronica.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(payload),
+          signal: controller ? controller.signal : undefined
+        });
+      })
+      .then(function (res) {
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        // FormSubmit answers HTTP 200 even when it did not deliver
+        // (e.g. "needs Activation"), so trust only an explicit success.
+        if (!data || String(data.success) !== "true") {
+          throw new Error((data && data.message) || "Enquiry not delivered");
+        }
+        return data;
+      });
+    return Promise.race([request, timeout]).then(
+      function (data) { clearTimeout(timer); return data; },
+      function (err) { clearTimeout(timer); throw err; }
+    );
+  }
+
+  // First field (in FIELD_LIMITS order) whose trimmed value is over its limit, or null.
+  function overLimitField(values) {
+    var keys = ["name", "email", "company", "message"];
+    for (var i = 0; i < keys.length; i++) {
+      if (values[keys[i]].length > FIELD_LIMITS[keys[i]]) return keys[i];
+    }
+    return null;
+  }
+
   if (form) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
+      // A send is already in flight (double click, Enter or a scripted second submit): ignore it.
+      if (sending) return;
+
+      // Honeypot filled => spam bot; pretend success, send nothing.
+      if (fieldValue("_honey")) {
+        form.reset();
+        setNote("Thank you — your enquiry has been sent.");
+        return;
+      }
+
+      // An enquiry was just sent: block an immediate second one.
+      if (Date.now() < cooldownUntil) {
+        setNote("Your enquiry has already been sent. Please wait a minute before sending another.");
+        return;
+      }
 
       var name = fieldValue("name");
       var email = fieldValue("email");
       var company = fieldValue("company");
       var area = fieldValue("area") || "General enquiry";
       var message = fieldValue("message");
-
+      var values = { name: name, email: email, company: company, message: message };
       var emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      setInvalid("name", !name);
-      setInvalid("email", !email || !emailOk);
-      setInvalid("message", !message);
+
+      setInvalid("name", !name || name.length > FIELD_LIMITS.name);
+      setInvalid("email", !email || !emailOk || email.length > FIELD_LIMITS.email);
+      setInvalid("company", company.length > FIELD_LIMITS.company);
+      setInvalid("message", !message || message.length > FIELD_LIMITS.message);
 
       if (!name || !email || !message) {
-        if (note) note.textContent = "Please fill in your name, email and project brief.";
+        setNote("Please fill in your name, email and project brief.");
         return;
       }
       if (!emailOk) {
-        if (note) note.textContent = "Please enter a valid email address.";
+        setNote("Please enter a valid email address.");
         return;
       }
-
-      // Honeypot filled => spam bot; pretend success, send nothing.
-      if (fieldValue("_honey")) {
-        form.reset();
-        if (note) note.textContent = "Thank you — your enquiry has been sent.";
+      var over = overLimitField(values);
+      if (over) {
+        setNote("Please keep your " + FIELD_LABELS[over] + " to " + FIELD_LIMITS[over] + " characters or fewer.");
         return;
       }
 
@@ -196,7 +289,7 @@
           "mailto:admin@santronica.com" +
           "?subject=" + encodeURIComponent(subject) +
           "&body=" + encodeURIComponent(bodyLines.join("\n"));
-        if (note) note.textContent = "Opening your email app instead… If nothing happens, write to admin@santronica.com directly.";
+        setNote("Opening your email app instead… If nothing happens, write to admin@santronica.com directly.");
       }
 
       if (typeof fetch !== "function") {
@@ -204,49 +297,29 @@
         return;
       }
 
-      var submitBtn = form.querySelector('button[type="submit"]');
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.textContent = "Sending…";
-      }
-      if (note) note.textContent = "";
+      setSending(true);
+      setNote("");
 
-      fetch("https://formsubmit.co/ajax/admin@santronica.com", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-          company: company || "—",
-          "project area": area,
-          message: message,
-          _subject: subject,
-          _template: "table",
-          _captcha: "false"
-        })
+      sendEnquiry({
+        name: name,
+        email: email,
+        company: company || "—",
+        "project area": area,
+        message: message,
+        _subject: subject,
+        _template: "table",
+        _captcha: "false"
       })
-        .then(function (res) {
-          if (!res.ok) throw new Error("HTTP " + res.status);
-          return res.json();
-        })
-        .then(function (data) {
-          // FormSubmit answers HTTP 200 even when it did not deliver
-          // (e.g. "needs Activation"), so trust only an explicit success.
-          if (!data || String(data.success) !== "true") {
-            throw new Error((data && data.message) || "Enquiry not delivered");
-          }
+        .then(function () {
           form.reset();
-          if (note) note.textContent = "Thank you — your enquiry has been sent. We'll get back to you shortly.";
-        })
-        .catch(function () {
+          cooldownUntil = Date.now() + SENT_COOLDOWN_MS;
+          setNote("Thank you — your enquiry has been sent. We'll get back to you shortly.");
+        }, function () {
+          // Not confirmed as delivered (HTTP error, success:"false", network error or timeout):
+          // keep the mailto fallback so the enquiry still reaches the business.
           mailtoFallback();
         })
-        .finally(function () {
-          if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Send Enquiry";
-          }
-        });
+        .then(function () { setSending(false); }, function () { setSending(false); });
     });
   }
 
