@@ -164,8 +164,9 @@
   var submitBtn = form ? form.querySelector('button[type="submit"]') : null;
   var sendLabel = submitBtn ? submitBtn.textContent : "Send Enquiry";
 
-  // Limits mirror the maxlength attributes in index.html. maxlength does not stop values
-  // set by script, autofill or drag and drop, so the same limits are checked here too.
+  // Name, email and company limits mirror their maxlength attributes in index.html, which do not
+  // stop values set by script, autofill or drag and drop. The brief has no maxlength, so a long
+  // paste is not cut silently; this check asks the visitor to shorten it instead.
   var FIELD_LIMITS = { name: 100, email: 254, company: 120, message: 5000 };
   var FIELD_LABELS = { name: "name", email: "email address", company: "company name", message: "project brief" };
   var REQUEST_TIMEOUT_MS = 30000; // generous, so a slow but successful send is not also sent by mailto
@@ -335,13 +336,16 @@
         .then(function () {
           form.reset();
           cooldownUntil = Date.now() + SENT_COOLDOWN_MS;
+          // Clear aria-busy before writing the note so screen readers announce it.
+          setSending(false);
           setNote("Thank you — your enquiry has been sent. We'll get back to you shortly.");
         }, function () {
           // Not confirmed as delivered (HTTP error, success:"false", network error or timeout):
           // keep the mailto fallback so the enquiry still reaches the business.
+          setSending(false);
           mailtoFallback();
         })
-        .then(function () { setSending(false); }, function () { setSending(false); });
+        .then(null, function () { setSending(false); });
     });
   }
 

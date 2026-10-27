@@ -21,7 +21,7 @@ jobs:
   uptime:
     name: apex, redirects, brand marker, TLS expiry
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - name: Run checks
         env:
@@ -29,6 +29,7 @@ jobs:
           VERCEL_APP: https://santronica.vercel.app
         run: |
           set -uo pipefail
+          set +e  # Actions runs bash -e; every check reports through fail() instead
           UA="santronica-uptime/1.0 (+https://github.com/UjjwalPardeshi/santronica)"
           CURL=(curl -sS --max-time 20 --retry 2 --retry-delay 5 --retry-all-errors -A "$UA")
           failures=0

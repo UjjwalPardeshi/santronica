@@ -4,9 +4,9 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/:path(.*)",
       "has": [{ "type": "host", "value": "santronica\\.vercel\\.app" }],
-      "destination": "https://santronica.com/:path*",
+      "destination": "https://santronica.com/:path",
       "permanent": true
     }
   ],
