@@ -1,8 +1,8 @@
 # Santronica
 
-> Electronics, FPGA, embedded software, software and app development, and intrinsic safety design services for clients in the US and India: PCB layout, prototyping, FPGA design, embedded Linux and Android, mobile and web apps, AI and workflow automation, compliance testing support, and IEC 60079 intrinsic safety consulting, including design consultancy for Zone 0/1 products and certification guidance.
+> Electronics, FPGA, embedded software, software and app development, and intrinsic safety design services for clients worldwide: PCB layout, prototyping, FPGA design, embedded Linux and Android, mobile and web apps, AI and workflow automation, compliance testing support, and IEC 60079 intrinsic safety consulting, including design consultancy for Zone 0/1 products and certification guidance.
 
-Santronica is a team of five people with more than 20 years of experience in new product design, testing and consulting. It works in niche areas and provides customized solutions at any project stage to meet each client's business needs. Its engineers are Ex Comp certified (Ex competence certification).
+Santronica is a team of more than ten specialist engineers with more than 20 years of experience and more than ten projects delivered for clients around the world in new product design, testing and consulting. It works in niche areas and provides customized solutions at any project stage to meet each client's business needs. Its engineers are Ex Comp certified (Ex competence certification).
 
 The website is a single page. The links from Services to Contact are sections of https://santronica.com/. Contact: admin@santronica.com
 
@@ -29,8 +29,8 @@ The website is a single page. The links from Services to Contact are sections of
 
 ## About
 
-- [Why Santronica](https://santronica.com/#why): Team of five with more than 20 years of experience, customized solutions at any project stage, Ex Comp certified engineers, clients in the US and India.
+- [Why Santronica](https://santronica.com/#why): More than ten specialist engineers, more than 20 years of experience, more than ten projects delivered globally, customized solutions at any project stage, Ex Comp certified engineers, clients worldwide.
 
 ## Contact
 
-- [Contact](https://santronica.com/#contact): Project enquiry form, or email admin@santronica.com. Clients are served across the US and India.
+- [Contact](https://santronica.com/#contact): Project enquiry form, or email admin@santronica.com. Clients are served worldwide.

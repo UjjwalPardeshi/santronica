@@ -97,7 +97,7 @@
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 24px;
   padding: 40px 0 36px;
 }
@@ -782,6 +782,7 @@
 .stats-grid > .reveal:nth-child(4),
 .timeline > .reveal:nth-child(4) { animation-delay: 210ms; }
 .grid > .reveal:nth-child(5),
+.stats-grid > .reveal:nth-child(5),
 .timeline > .reveal:nth-child(5) { animation-delay: 280ms; }
 .grid > .reveal:nth-child(6),
 .timeline > .reveal:nth-child(6) { animation-delay: 350ms; }
