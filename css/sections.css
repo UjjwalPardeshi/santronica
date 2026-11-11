@@ -384,7 +384,8 @@
     padding-top: 0;
   }
 
-  /* Hero band lines up with the wider hero above it. */
+  /* Hero index and band line up with the wider hero above them. */
+  .container.hero-index,
   .hero-stats > .container {
     width: min(1200px, 100% - 44px);
   }

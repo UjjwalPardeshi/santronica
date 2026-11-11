@@ -15,7 +15,7 @@ it in this folder, done. No code changes needed.
 | `lab-testing.jpg` | Engineer at test bench | Your lab/workbench (scope, soldering station) | "Why Us" section, large photo |
 | `electronics-assembly.jpg` | Hands assembling a power board | Your team assembling/testing a board | "Why Us" section, small overlay photo |
 | `og-preview.jpg` | PCB macro, 1200×630 | A branded 1200×630 social-share card | Link previews (WhatsApp/LinkedIn/etc.) |
-| `pcb-poster.webp` | Render of the site's own 3D board | Not a photo — keep it. Re-render it only if the 3D board's design or hero pose changes | Hero, until the live 3D board appears, and as the hero image when 3D is off |
+| `hero-suite.webp` | Render of the site's own 3D hero line-up (field device, board, FPGA, laptop, phone) | Not a photo — keep it. Re-render it if a 3D model, the hero composite (js/pcb/cast.js) or the hero pose changes | Hero, until the live 3D scene appears, and as the hero image when 3D is off |
 
 ## Replacement tips
 
