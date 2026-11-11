@@ -74,7 +74,8 @@ function paintScreen(canvas) {
   c.setTransform(k, 0, 0, k, 0, 0);
   c.textBaseline = 'middle';
 
-  const path = (x, y, w, h, r) => { c.beginPath(); c.roundRect(x, y, w, h, r); };
+  const rr = (x, y, w, h, r) => (c.roundRect ? c.roundRect(x, y, w, h, r) : c.rect(x, y, w, h)); // no roundRect before Safari 16
+  const path = (x, y, w, h, r) => { c.beginPath(); rr(x, y, w, h, r); };
   const fillC = (col) => { c.fillStyle = col; c.fill(); };
   const edge = (col = C.hair) => { c.strokeStyle = col; c.lineWidth = 1.6; c.stroke(); };
   const txt = (s, x, y, o = {}) => {
@@ -164,7 +165,7 @@ function paintScreen(canvas) {
   const base = 700, slot = 438 / vals.length, bw = 30;
   vals.forEach((v, i) => {
     const h = (v / 50) * 300, x = 300 + i * slot + (slot - bw) / 2, cx = x + bw / 2, last = i === vals.length - 1;
-    c.beginPath(); c.roundRect(x, base - h, bw, h, [7, 7, 0, 0]); fillC(last ? C.graph : C.bar);
+    c.beginPath(); rr(x, base - h, bw, h, [7, 7, 0, 0]); fillC(last ? C.graph : C.bar);
     if (last) {
       path(cx - 52, base - h - 52, 104, 38, 19); fillC(C.graph);
       txt('$48.2k', cx, base - h - 33, { f: font(500, T, MONO), col: C.white, align: 'center' });
