@@ -299,6 +299,71 @@
   background: var(--action);
 }
 
+/* ---------- Software: one panel of service rows, each with a quiet type label ---------- */
+.soft-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 48px;
+  background: var(--card);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  padding: 8px 40px;
+}
+
+.soft-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0;
+  border-top: 1px solid var(--hairline);
+}
+
+/* The first row of each column sits on the panel edge, so it needs no rule above it. */
+.soft-item:nth-child(-n + 2) {
+  border-top: 0;
+}
+
+.soft-copy h3 {
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  margin-bottom: 4px;
+}
+
+.soft-copy p {
+  font-size: 15px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+
+.soft-tag {
+  flex-shrink: 0;
+  margin-top: 1px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--hairline-strong);
+  color: var(--text-2);
+}
+
+@media (max-width: 768px) {
+  .soft-list {
+    grid-template-columns: 1fr;
+    padding: 4px 22px;
+  }
+
+  .soft-item {
+    padding: 18px 0;
+  }
+
+  .soft-item:nth-child(2) {
+    border-top: 1px solid var(--hairline);
+  }
+}
+
 /* ---------- Industries: bento, the hazardous-area tile runs the full height ---------- */
 .industries-text {
   padding-top: 12px;
@@ -332,6 +397,11 @@
   font-size: 15px;
   color: var(--text-2);
   line-height: 1.55;
+}
+
+/* On a white (alternate) section the tiles flip to the grey card, like the service rows. */
+.section-alt .tile:not(.tile-ex) {
+  background: var(--card-alt);
 }
 
 .industries-grid .tile-wide {
