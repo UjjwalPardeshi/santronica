@@ -30,7 +30,19 @@ jobs:
           cd "$RUNNER_TEMP/smoke"
           npm init -y >/dev/null
           npm install --no-audit --no-fund --save-exact playwright@1.64.0
-          npx playwright install --with-deps chromium
+          # The browser comes from Playwright's CDN; its system packages come from the Ubuntu
+          # mirrors, which sometimes fail (2026-11-11: two runs lost to "Temporary failure
+          # resolving"). The runner image already ships Chromium's libraries, so retry the
+          # packages a few times and then carry on with a warning instead of failing the check.
+          npx playwright install chromium
+          for attempt in 1 2 3; do
+            if npx playwright install-deps chromium; then break; fi
+            if [ "$attempt" = 3 ]; then
+              echo "::warning::Ubuntu packages for Chromium could not be installed; testing with the runner's own libraries."
+              break
+            fi
+            sleep 30
+          done
 
       - name: Write and run the smoke test
         run: |
