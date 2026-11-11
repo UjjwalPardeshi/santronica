@@ -579,11 +579,6 @@
     height: clamp(360px, min(42vw, 100svh - 150px), 620px);
     margin: 0;
   }
-  .pcb-slot-wrapper--contact {
-    height: clamp(220px, 34vh, 320px);
-    height: clamp(220px, 34svh, 320px);
-    margin-top: 40px;
-  }
 }
 
 /* Tablet & phone: single column. Only a few sections keep a stage for the board. */
