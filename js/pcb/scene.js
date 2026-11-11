@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/RoomEnvironment.js';
 
 export const CAMERA_DISTANCE = 1000;
-const FOV = 24;
+export const FOV = 24;
 
 export function createStage(canvas, { dpr }) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });

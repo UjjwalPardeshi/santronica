@@ -1,7 +1,8 @@
 /*
- * Santronica — floating 3D PCB.
+ * Santronica — floating 3D objects (the PCB, a phone, a laptop, an FPGA, a field device).
  * Loaded only when the <head> probe found WebGL, no reduced-motion and no
- * Save-Data (html.pcb). Follows the page's [data-pcb-slot] boxes while scrolling.
+ * Save-Data (html.pcb). Follows the page's [data-pcb-slot] boxes while scrolling; each slot
+ * names the object it shows (data-pcb-model) and the object changes mid-flight, unseen.
  * Contract: see the SPEC — window.SantronicaPCB { ready, snap(), isSettled(), info() },
  * html.pcb-live after the first frame, html.pcb-failed on any failure, ?pcbdebug HUD.
  */
@@ -10,6 +11,8 @@ import { createStage } from './pcb/scene.js';
 import { PcbModel } from './pcb/board.js';
 import { Choreo, poseQuaternion, ANGLES } from './pcb/choreo.js';
 import { Spring } from './pcb/spring.js';
+import { Ensemble } from './pcb/ensemble.js';
+import { COMPOSITES } from './pcb/cast.js';
 
 const html = document.documentElement;
 const params = new URLSearchParams(location.search);
@@ -46,11 +49,32 @@ async function boot() {
   let dpr = Math.min(devicePixelRatio || 1, maxDpr);
   const S = createStage(canvas, { dpr });
   const aniso = Math.min(8, S.renderer.capabilities.getMaxAnisotropy());
-  const model = new PcbModel({ texRes: small() || coarse ? 1024 : 2048, palette: stage.dataset.pcbPalette || 'green', anisotropy: aniso });
+  const texRes = small() || coarse ? 1024 : 2048;
+  // Build only what the page's slots ask for (a composite pulls in its parts), yielding between
+  // models so no single task blocks the main thread for long.
+  const wanted = new Set([...document.querySelectorAll('[data-pcb-slot]')].map((el) => el.getAttribute('data-pcb-model') || 'pcb'));
+  const needed = new Set();
+  for (const name of wanted) for (const part of COMPOSITES[name] ? COMPOSITES[name].map((p) => p.model) : [name]) needed.add(part);
+  const FACTORIES = {
+    pcb: async () => new PcbModel({ texRes, palette: stage.dataset.pcbPalette || 'green', anisotropy: aniso }),
+    phone: async () => new (await import('./pcb/models/phone.js')).PhoneModel({ texRes, anisotropy: aniso }),
+    laptop: async () => new (await import('./pcb/models/laptop.js')).LaptopModel({ texRes, anisotropy: aniso }),
+    chip: async () => new (await import('./pcb/models/chip.js')).ChipModel({ texRes, anisotropy: aniso }),
+    device: async () => new (await import('./pcb/models/device.js')).DeviceModel({ texRes, anisotropy: aniso }),
+  };
+  const models = {};
+  for (const name of needed) {
+    if (!FACTORIES[name]) continue;
+    models[name] = await FACTORIES[name]();
+    await new Promise((r) => setTimeout(r, 0));
+  }
+  const cast = new Ensemble(models, COMPOSITES);
   mark('model');
-  S.scene.add(model.group);
+  S.scene.add(cast.holder);
+  const has = (name) => cast.has(name);
 
-  const choreo = new Choreo({ hull: (e) => model.hull(e), travelOpacity: small() || coarse ? 0.1 : 0.16 });
+  const choreo = new Choreo({ hull: (name, e) => cast.hull(has(name) ? name : 'pcb', e), travelOpacity: small() || coarse ? 0.1 : 0.16 });
+  let shown = null;
 
   // Springs (critically damped). Position/size are CSS px; angles degrees.
   const sp = {};
@@ -78,6 +102,13 @@ async function boot() {
     const t = choreo.target(scrollY, vw, vh);
     if (!t) return false;
     for (const k of Object.keys(sp)) sp[k].target = t[k];
+    // A different object is due: fade out first, swap once it is (almost) invisible.
+    const next = has(t.model) ? t.model : 'pcb';
+    if (shown === null) { cast.show(next); shown = next; }
+    else if (next !== shown) {
+      sp.opacity.target = 0;
+      if (sp.opacity.value < 0.02) { cast.show(next); shown = next; }
+    }
     tilt.x.target = finePointer && !POSTER ? (pointer.y - 0.5) * -5 : 0;
     tilt.y.target = finePointer && !POSTER ? (pointer.x - 0.5) * 7 : 0;
     return true;
@@ -100,19 +131,20 @@ async function boot() {
     q.premultiply(qt.setFromEuler(eul));
 
     const scale = sp.s.value * upp;
-    model.group.quaternion.copy(q);
-    model.group.scale.setScalar(Math.max(scale, 1e-4));
-    model.group.position.set((sp.x.value - vw / 2) * upp - sp.ox.value * scale, -(sp.y.value + bob - vh / 2) * upp - sp.oy.value * scale, 0);
-    model.setExplode(Math.min(1, Math.max(0, sp.explode.value)));
-    center.copy(model.group.position);
-    S.aimLights(center, scale * 70);
+    const holder = cast.holder;
+    holder.quaternion.copy(q);
+    holder.scale.setScalar(Math.max(scale, 1e-4));
+    holder.position.set((sp.x.value - vw / 2) * upp - sp.ox.value * scale, -(sp.y.value + bob - vh / 2) * upp - sp.oy.value * scale, 0);
+    cast.setExplode(Math.min(1, Math.max(0, sp.explode.value)));
+    center.copy(holder.position);
+    S.aimLights(center, scale * cast.radius(shown));
     const op = Math.min(1, Math.max(0, sp.opacity.value));
     if (Math.abs(op - apply.op) > 0.004) { canvas.style.opacity = op.toFixed(3); apply.op = op; }
   };
   apply.op = -1;
 
   const onScreen = () => {
-    const half = 0.62 * 100 * sp.s.value;
+    const half = 1.25 * cast.radius(shown) * sp.s.value;
     return sp.y.value + half > -40 && sp.y.value - half < vh + 40 && sp.opacity.value > 0.01;
   };
 
@@ -153,7 +185,7 @@ async function boot() {
     if (hud && ++frames && now - fpsT > 500) {
       fps = Math.round((frames * 1000) / (now - fpsT)); frames = 0; fpsT = now;
       const c = choreo.last;
-      hud.textContent = `pair  ${c.pair ? c.pair.join(' → ') : '-'}\nt     ${c.t.toFixed(3)}\nfps   ${fps}\ndpr   ${dpr}\ncalls ${S.renderer.info.render.calls}  tris ${S.renderer.info.render.triangles}`;
+      hud.textContent = `pair  ${c.pair ? c.pair.join(' → ') : '-'}\nshow  ${shown}\nt     ${c.t.toFixed(3)}\nfps   ${fps}\ndpr   ${dpr}\ncalls ${S.renderer.info.render.calls}  tris ${S.renderer.info.render.triangles}`;
     }
   };
 
@@ -175,6 +207,8 @@ async function boot() {
     snap() {
       if (lost) return;
       layout(); setTargets();
+      const t = choreo.target(scrollY, vw, vh);
+      if (t && has(t.model) && t.model !== shown) { cast.show(t.model); shown = t.model; sp.opacity.target = t.opacity; }
       for (const k in sp) sp[k].snap();
       tilt.x.snap(); tilt.y.snap();
       apply();
@@ -188,8 +222,10 @@ async function boot() {
       triangles: S.renderer.info.render.triangles,
       slots: choreo.slots.map((s) => s.name),
       /** Where each slot's board is drawn at rest: fitted box in document px (for layout tests). */
-      fits: choreo.slots.map((s) => ({ name: s.name, cx: s.cx, cy: s.cy, w: s.bw * s.s, h: s.bh * s.s, slotW: s.w, slotH: s.h })),
+      fits: choreo.slots.map((s) => ({ name: s.name, model: s.model, cx: s.cx, cy: s.cy, w: s.bw * s.s, h: s.bh * s.s, slotW: s.w, slotH: s.h })),
       activePair: choreo.last.pair,
+      shown,
+      models: Object.keys(models),
       t: choreo.last.t,
       dpr,
       timings: { ...T },
