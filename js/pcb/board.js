@@ -172,6 +172,10 @@ export class PcbModel {
     }
     this.partBoxes = [...parts.values()];
     this.setExplode(0);
+    // Bounding-sphere radius at rest (mm), as the other models report: aims lights, gates rendering.
+    const rest = this.hull(0);
+    this.radius = 0;
+    for (let i = 0; i < rest.length; i += 3) this.radius = Math.max(this.radius, Math.hypot(rest[i], rest[i + 1], rest[i + 2]));
   }
 
   /** Height each part is lifted by at explode amount e (centre-first ripple, smootherstep). */

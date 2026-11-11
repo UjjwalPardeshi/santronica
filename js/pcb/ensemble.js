@@ -53,7 +53,8 @@ export class Ensemble {
 
   /** Bounding-sphere radius about the holder origin (aims the lights and the shadow frustum). */
   measureRadius(entry) {
-    if (entry.single) return entry.parts[0].model.radius;
+    const own = entry.single ? entry.parts[0].model.radius : NaN;
+    if (Number.isFinite(own) && own > 0) return own;
     let r = 0;
     const pts = this.hullOf(entry, 0);
     for (let i = 0; i < pts.length; i += 3) r = Math.max(r, Math.hypot(pts[i], pts[i + 1], pts[i + 2]));
