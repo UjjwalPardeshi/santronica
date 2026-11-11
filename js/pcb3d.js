@@ -53,7 +53,7 @@ async function boot() {
   // Build only what the page's slots ask for (a composite pulls in its parts), yielding between
   // models so no single task blocks the main thread for long.
   const wanted = new Set([...document.querySelectorAll('[data-pcb-slot]')].map((el) => el.getAttribute('data-pcb-model') || 'pcb'));
-  const needed = new Set();
+  const needed = new Set(['pcb']); // the fallback for unknown or failed models
   for (const name of wanted) for (const part of COMPOSITES[name] ? COMPOSITES[name].map((p) => p.model) : [name]) needed.add(part);
   const FACTORIES = {
     pcb: async () => new PcbModel({ texRes, palette: stage.dataset.pcbPalette || 'green', anisotropy: aniso }),
@@ -65,9 +65,11 @@ async function boot() {
   const models = {};
   for (const name of needed) {
     if (!FACTORIES[name]) continue;
-    models[name] = await FACTORIES[name]();
+    try { models[name] = await FACTORIES[name](); }
+    catch (err) { console.warn(`[pcb] ${name} model unavailable, its slots show the board:`, err && err.message ? err.message : err); }
     await new Promise((r) => setTimeout(r, 0));
   }
+  if (!models.pcb) throw new Error('board model failed to build');
   const cast = new Ensemble(models, COMPOSITES);
   mark('model');
   S.scene.add(cast.holder);
