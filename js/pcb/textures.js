@@ -7,7 +7,7 @@
  * channel lines up pixel-for-pixel.
  */
 import * as THREE from 'three';
-import { BOARD, PARTS, footprint, xf, TRACES, VIAS, KEEPOUTS, ISLANDS, IS_REGION, SILK_TEXT, TEST_POINTS, FIDUCIALS, LABEL } from './layout.js';
+import { BOARD, PARTS, footprint, xf, TRACES, VIAS, KEEPOUTS, ISLANDS, IS_REGION, SILK_TEXT, TEST_POINTS, FIDUCIALS, LABEL } from './layout.js?v=2';
 
 const FONT = '"Inter", "Helvetica Neue", Arial, sans-serif';
 

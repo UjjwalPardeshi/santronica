@@ -3,9 +3,9 @@
  * every instanced component kind. Owns the exploded-view animation.
  */
 import * as THREE from 'three';
-import { BOARD, PARTS } from './layout.js';
-import { createMaterials, createGeometries, buildInstances, partLiftTable, MARK_CELLS } from './parts.js';
-import { buildBoardTextures, buildEdgeTexture, buildMarkAtlas, buildEcapTopTexture, buildModuleTexture } from './textures.js';
+import { BOARD, PARTS } from './layout.js?v=2';
+import { createMaterials, createGeometries, buildInstances, partLiftTable, MARK_CELLS } from './parts.js?v=2';
+import { buildBoardTextures, buildEdgeTexture, buildMarkAtlas, buildEcapTopTexture, buildModuleTexture } from './textures.js?v=2';
 
 // kind -> [geometry, material, castShadow]
 const KINDS = {

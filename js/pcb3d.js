@@ -7,12 +7,12 @@
  * html.pcb-live after the first frame, html.pcb-failed on any failure, ?pcbdebug HUD.
  */
 import * as THREE from 'three';
-import { createStage } from './pcb/scene.js';
-import { PcbModel } from './pcb/board.js';
-import { Choreo, poseQuaternion, ANGLES } from './pcb/choreo.js';
-import { Spring } from './pcb/spring.js';
-import { Ensemble } from './pcb/ensemble.js';
-import { COMPOSITES } from './pcb/cast.js';
+import { createStage } from './pcb/scene.js?v=2';
+import { PcbModel } from './pcb/board.js?v=2';
+import { Choreo, poseQuaternion, ANGLES } from './pcb/choreo.js?v=2';
+import { Spring } from './pcb/spring.js?v=2';
+import { Ensemble } from './pcb/ensemble.js?v=2';
+import { COMPOSITES } from './pcb/cast.js?v=2';
 
 const html = document.documentElement;
 const params = new URLSearchParams(location.search);
@@ -57,10 +57,10 @@ async function boot() {
   for (const name of wanted) for (const part of COMPOSITES[name] ? COMPOSITES[name].map((p) => p.model) : [name]) needed.add(part);
   const FACTORIES = {
     pcb: async () => new PcbModel({ texRes, palette: stage.dataset.pcbPalette || 'green', anisotropy: aniso }),
-    phone: async () => new (await import('./pcb/models/phone.js')).PhoneModel({ texRes, anisotropy: aniso }),
-    laptop: async () => new (await import('./pcb/models/laptop.js')).LaptopModel({ texRes, anisotropy: aniso }),
-    chip: async () => new (await import('./pcb/models/chip.js')).ChipModel({ texRes, anisotropy: aniso }),
-    device: async () => new (await import('./pcb/models/device.js')).DeviceModel({ texRes, anisotropy: aniso }),
+    phone: async () => new (await import('./pcb/models/phone.js?v=2')).PhoneModel({ texRes, anisotropy: aniso }),
+    laptop: async () => new (await import('./pcb/models/laptop.js?v=2')).LaptopModel({ texRes, anisotropy: aniso }),
+    chip: async () => new (await import('./pcb/models/chip.js?v=2')).ChipModel({ texRes, anisotropy: aniso }),
+    device: async () => new (await import('./pcb/models/device.js?v=2')).DeviceModel({ texRes, anisotropy: aniso }),
   };
   const models = {};
   for (const name of needed) {

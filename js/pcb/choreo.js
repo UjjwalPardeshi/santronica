@@ -15,7 +15,7 @@
  * Angles are interpolated as numbers so authored paths (full turns, flips) stay exact.
  */
 import * as THREE from 'three';
-import { CAMERA_DISTANCE, FOV } from './scene.js';
+import { CAMERA_DISTANCE, FOV } from './scene.js?v=2';
 
 const D2R = Math.PI / 180;
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
