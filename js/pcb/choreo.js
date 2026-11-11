@@ -7,11 +7,15 @@
  *     (dwell), glides to B, then rides inside B; it dips in opacity mid-flight, fully out on
  *     flights longer than ~2.5 screens
  * Slots with a 0x0 box (display:none at this breakpoint) are ignored.
+ * Each slot names the model it shows (data-pcb-model, default "pcb"). Between two slots that
+ * ask for different models the canvas fades fully out around the midpoint of the flight, and
+ * `model` in the target switches there; pcb3d.js swaps the model only while it is invisible.
  *
  * Orientation convention (see SPEC): q = Rz(rz) · Ry(ry) · Rx(rx) · Ry_local(spin).
  * Angles are interpolated as numbers so authored paths (full turns, flips) stay exact.
  */
 import * as THREE from 'three';
+import { CAMERA_DISTANCE, FOV } from './scene.js?v=2';
 
 const D2R = Math.PI / 180;
 const Y_AXIS = new THREE.Vector3(0, 1, 0);
@@ -36,8 +40,8 @@ const lerp = (a, b, t) => a + (b - a) * t;
 
 export class Choreo {
   constructor({ hull, dwell = 0.3, travelOpacity = 0.55 }) {
-    this.hull = hull;             // (explode) => flat [x, y, z, ...] model-space mm points to fit
-    this.hulls = new Map();       // explode -> points (slots only use a few distinct values)
+    this.hull = hull;             // (model, explode) => flat [x, y, z, ...] model-space mm points to fit
+    this.hulls = new Map();       // "model:explode" -> points (slots only use a few distinct values)
     this.dwell = dwell;
     this.travelOpacity = travelOpacity;
     this.slots = [];
@@ -55,24 +59,42 @@ export class Choreo {
           rx: num(el, 'rx', 60), spin: num(el, 'spin', 0), ry: num(el, 'ry', 0), rz: num(el, 'rz', 0),
           explode: clamp01(num(el, 'explode', 0)), fit: num(el, 'fit', 0.9), opacity: clamp01(num(el, 'opacity', 1)),
         };
-        const fit = this.fitFor(pose, r.width, r.height);
-        return { name: el.getAttribute('data-pcb-slot'), el, cx: r.left + sx + r.width / 2, cy: r.top + sy + r.height / 2, w: r.width, h: r.height, pose, ...fit };
+        const model = el.getAttribute('data-pcb-model') || 'pcb';
+        const fit = this.fitFor(pose, r.width, r.height, model, innerHeight);
+        return { name: el.getAttribute('data-pcb-slot'), model, el, cx: r.left + sx + r.width / 2, cy: r.top + sy + r.height / 2, w: r.width, h: r.height, pose, ...fit };
       })
       .filter(Boolean)
       .sort((a, b) => a.cy - b.cy);
   }
 
-  /** px-per-mm so the posed board fills `fit` of the slot, plus the projected centre offset (mm). */
-  fitFor(pose, w, h) {
+  /**
+   * px-per-mm so the posed model fills `fit` of the slot, plus the projected centre offset (mm).
+   * Perspective-aware: points nearer the camera draw larger, which matters for deep models and
+   * composites (a phone standing in front of a laptop), so the size is refined a few times with
+   * each point magnified by CAMERA_DISTANCE / (CAMERA_DISTANCE - its depth in world units).
+   */
+  fitFor(pose, w, h, model = 'pcb', vh = 900) {
     const q = poseQuaternion(pose);
-    if (!this.hulls.has(pose.explode)) this.hulls.set(pose.explode, this.hull(pose.explode));
-    const pts = this.hulls.get(pose.explode);
-    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    const key = `${model}:${pose.explode}`;
+    if (!this.hulls.has(key)) this.hulls.set(key, this.hull(model, pose.explode));
+    const pts = this.hulls.get(key);
+    const rot = new Float32Array(pts.length);
     for (let i = 0; i < pts.length; i += 3) {
       _v.set(pts[i], pts[i + 1], pts[i + 2]).applyQuaternion(q);
-      x0 = Math.min(x0, _v.x); x1 = Math.max(x1, _v.x); y0 = Math.min(y0, _v.y); y1 = Math.max(y1, _v.y);
+      rot[i] = _v.x; rot[i + 1] = _v.y; rot[i + 2] = _v.z;
     }
-    const s = Math.min((pose.fit * w) / (x1 - x0), (pose.fit * h) / (y1 - y0));
+    const upp = (2 * CAMERA_DISTANCE * Math.tan((FOV * Math.PI) / 360)) / vh; // world units per CSS px
+    let s = 0, x0, x1, y0, y1;
+    for (let pass = 0; pass < 4; pass++) {
+      const k = s * upp; // world units per mm at the current size (0 on the first, orthographic pass)
+      x0 = Infinity; x1 = -Infinity; y0 = Infinity; y1 = -Infinity;
+      for (let i = 0; i < rot.length; i += 3) {
+        const m = CAMERA_DISTANCE / Math.max(CAMERA_DISTANCE * 0.2, CAMERA_DISTANCE - rot[i + 2] * k);
+        const x = rot[i] * m, y = rot[i + 1] * m;
+        x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+      }
+      s = Math.min((pose.fit * w) / (x1 - x0), (pose.fit * h) / (y1 - y0));
+    }
     return { s, ox: (x0 + x1) / 2, oy: (y0 + y1) / 2, bw: x1 - x0, bh: y1 - y0 };
   }
 
@@ -82,7 +104,7 @@ export class Choreo {
     if (!S.length) return null;
     const focus = scrollY + vh / 2;
     const screen = (sl) => ({ x: sl.cx - window.scrollX, y: sl.cy - scrollY });
-    const pack = (sl, x, y, opacity, pair, t) => ({ x, y, s: sl.s, ox: sl.ox, oy: sl.oy, ...sl.pose, opacity, pair, t });
+    const pack = (sl, x, y, opacity, pair, t) => ({ x, y, s: sl.s, ox: sl.ox, oy: sl.oy, ...sl.pose, opacity, pair, t, model: sl.model });
 
     if (focus <= S[0].cy || S.length === 1) {
       const p = screen(S[0]); this.last = { pair: [S[0].name], t: 0 };
@@ -114,6 +136,12 @@ export class Choreo {
     const floor = this.travelOpacity * (1 - clamp01((D / vh - 1.5) / 1.0));
     const dip = 1 - (1 - floor) * Math.sqrt(Math.sin(Math.PI * u));
     out.opacity = lerp(A.pose.opacity, B.pose.opacity, e) * dip;
+    out.model = e < 0.5 ? A.model : B.model;
+    if (A.model !== B.model) {
+      // A different object waits at B: be fully transparent around the midpoint, where they swap.
+      const d = Math.abs(2 * e - 1);
+      out.opacity *= smoother(clamp01((d - 0.08) / 0.5));
+    }
     out.pair = [A.name, B.name];
     out.t = t;
     this.last = { pair: out.pair, t };

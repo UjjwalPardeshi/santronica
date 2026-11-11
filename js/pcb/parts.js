@@ -5,7 +5,7 @@
  */
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/addons/RoundedBoxGeometry.js';
-import { PARTS, footprint, xf } from './layout.js';
+import { PARTS, footprint, xf } from './layout.js?v=2';
 
 const TOP = 0.8;
 const V = new THREE.Vector3(), Q = new THREE.Quaternion(), S = new THREE.Vector3(), UP = new THREE.Vector3(0, 1, 0);
