@@ -612,16 +612,16 @@
   }
 }
 
-/* Hero still: a render of the hero pose, padded 20% so perspective never clips it.
-   Contained in the slot grown by the same 20%, it lands exactly where the live board
-   is fitted. It covers the canvas while that fades in, then steps aside; without a
-   live board (no JS, reduced motion, no WebGL, failure) it stays as the hero image. */
+/* Hero still: a render of the hero scene cropped to the objects. Contained in 98% of the slot,
+   it lands where the live scene is fitted (fit 0.98, centred), so the swap from still to live
+   doesn't jump. It covers the canvas while that fades in, then steps aside; without a live
+   scene (no JS, reduced motion, no WebGL, failure) it stays as the hero image. */
 .pcb-poster {
   position: absolute;
-  left: -10%;
-  top: -10%;
-  width: 120%;
-  height: 120%;
+  left: 1%;
+  top: 1%;
+  width: 98%;
+  height: 98%;
   max-width: none;
   object-fit: contain;
   pointer-events: none;
