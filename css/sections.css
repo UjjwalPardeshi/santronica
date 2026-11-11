@@ -357,9 +357,10 @@
 
 /* ---------- Small Mobile (< 390px) ---------- */
 @media (max-width: 390px) {
+  /* Side padding only: the stats and standards rows are containers with their own vertical padding. */
   .container {
     width: 100%;
-    padding: 0 16px;
+    padding-inline: 16px;
   }
 
   .nav-links {
@@ -482,7 +483,10 @@
 
   .tile,
   .pillar,
-  .deliv-card {
+  .deliv-card,
+  .btn-ghost,
+  .soft-tag,
+  .soft-list {
     border-width: 2px;
   }
 }
