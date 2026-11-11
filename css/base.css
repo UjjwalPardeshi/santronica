@@ -82,7 +82,6 @@
 }
 
 /* Dark grounds swap the interactive pair to silver. */
-.hero,
 .section-dark,
 .footer,
 .nav.nav--dark {
@@ -105,7 +104,7 @@
 }
 
 html {
-  background: var(--bg-dark);
+  background: var(--bg-alt);
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 16px);
 }
@@ -339,13 +338,13 @@ p {
 
 .btn-ghost {
   background: transparent;
-  color: var(--text-dark);
-  border-color: var(--hairline-dark-strong);
+  color: var(--text);
+  border-color: var(--hairline-strong);
 }
 
 .btn-ghost:hover {
-  border-color: var(--text-dark);
-  background: color-mix(in srgb, var(--dark-text) 5%, transparent);
+  border-color: var(--text);
+  background: color-mix(in srgb, var(--light-text) 4%, transparent);
 }
 
 .btn-small {
@@ -406,7 +405,6 @@ p {
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.hero .badge,
 .section-dark .badge {
   border-color: var(--hairline-dark-strong);
   color: var(--text-dark);
