@@ -1,6 +1,6 @@
 # Santronica
 
-> Electronics and intrinsic safety design services for clients in the US and India: electronics and embedded software design, PCB layout, prototyping, compliance testing support, and IEC 60079 intrinsic safety consulting, including design consultancy for Zone 0/1 products and certification guidance.
+> Electronics, FPGA, embedded software, software and app development, and intrinsic safety design services for clients in the US and India: PCB layout, prototyping, FPGA design, embedded Linux and Android, mobile and web apps, AI and workflow automation, compliance testing support, and IEC 60079 intrinsic safety consulting, including design consultancy for Zone 0/1 products and certification guidance.
 
 Santronica is a team of five people with more than 20 years of experience in new product design, testing and consulting. It works in niche areas and provides customized solutions at any project stage to meet each client's business needs. Its engineers are Ex Comp certified (Ex competence certification).
 
@@ -8,7 +8,8 @@ The website is a single page. The links from Services to Contact are sections of
 
 ## Services
 
-- [Services](https://santronica.com/#services): Electronics design: design consulting, prototyping, schematic and PCB layout, functional and integration testing, support in CE, UL and FDA compliance testing, obsolescence management and porting, retrofit of old boards. Software and mechanical design: embedded software, board bring-up and test software, webserver and web application design, Android and iOS apps, software maintenance, test fixture and enclosure design. Intrinsic safety: consulting and workshops, design consultancy for Zone 0/1 products, intrinsic safe design review, support in protection circuits and layouts, technical files as per OD 17, certification guidance, encapsulation and conformal coating.
+- [Services](https://santronica.com/#services): Electronics and hardware design: design consulting, prototyping, schematic and PCB layout, high-speed multilayer PCB layout, processor, SoM and carrier board design, RF design, signal integrity and thermal simulation, design review, functional and integration testing, component selection and sourcing, support in CE, UL and FDA compliance testing, obsolescence management and porting, retrofit of old boards. FPGA design: RTL design and verification, IP core integration, FPGA boards and carrier cards, high-speed ADC and DAC data acquisition, DSP and video processing, high-speed and transceiver interfaces, AI/ML acceleration, ASIC proof of concept, pre- and post-silicon validation. Embedded software: embedded application software, board bring-up and test software, BSP customization and device drivers, bootloader and OS porting (Linux, Android, QNX, VxWorks, FreeRTOS), embedded GUI and HMI, wireless stacks (Wi-Fi, Bluetooth, ZigBee, LoRa, LTE), secure boot, boot-time and power optimization, device-to-cloud integration, software maintenance. Mechanical and product engineering: enclosure design, test fixtures, thermal design and heatsinks, 3D-printed prototypes, engineering samples and acceptance testing, certification and qualification support (EMI/EMC, environmental, safety), manufacturing handover and mass-production support, product lifecycle management. Intrinsic safety: consulting and workshops, design consultancy for Zone 0/1 products, intrinsic safe design review, support in protection circuits and layouts, technical files as per OD 17, certification guidance, encapsulation and conformal coating.
+- [Software development](https://santronica.com/#software): Mobile app development (Android, iOS, Flutter), web application development (React, Next.js, progressive web apps, webservers), custom software and SaaS (ERP, CRM, booking systems), e-commerce development (B2B and B2C portals), IoT development (sensors, dashboards, connected ecosystems), MVP development, UI/UX design, AI agents and chatbots, workflow automation, and dedicated development teams.
 
 ## Industries
 
@@ -24,7 +25,7 @@ The website is a single page. The links from Services to Contact are sections of
 
 ## Tools and standards
 
-- [Tools and standards](https://santronica.com/#tools): Microcontrollers and microprocessors, Altium and OrCAD EDA tools, circuit simulation, IEC 610xx standards, C and Python, webserver and mobile app connectivity, Power BI, and intrinsic safety standards IEC 60079-0, IEC 60079-1 and IEC 60079-11.
+- [Tools and standards](https://santronica.com/#tools): Microcontrollers and microprocessors, Altium and OrCAD EDA tools, circuit simulation, IEC 610xx standards, FPGA and RTL design, C and Python, embedded Linux and Android, React and Next.js, Flutter, webserver and mobile app connectivity, Power BI, and intrinsic safety standards IEC 60079-0, IEC 60079-1 and IEC 60079-11.
 
 ## About
 
