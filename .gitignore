@@ -1,1 +1,3 @@
 .vercel
+# local 3D model viewers and review renders (also kept off the site by .vercelignore)
+rqa/
